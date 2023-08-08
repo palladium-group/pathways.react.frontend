@@ -1,9 +1,7 @@
-const protocol = window.location.protocol;
-const hostname = window.location.hostname;
-const path = protocol + "//" + hostname;
+import url from "../api";
 export const apiRoutes = {
   //User
-  user: `${path}${process.env.REACT_APP_BACKEND}/api/user`,
-  auth: `${path}${process.env.REACT_APP_BACKEND}/api/auth`,
-  permission: `${path}${process.env.REACT_APP_BACKEND}/api/permission`,
+  user: `${url}/user`,
+  auth: `${url}/auth`,
+  permission: `${url}/permission`,
 };
