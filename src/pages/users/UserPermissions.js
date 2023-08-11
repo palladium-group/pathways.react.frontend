@@ -44,7 +44,6 @@ const AssignUserPermissions = () => {
       permissions: yup.object().required("Please select at least one permission."),
     }),
     onSubmit: async (values, { setSubmitting }) => {
-      console.log(values);
       // Extract the permissions object from values
       const permissions = values.permissions;
       // Get an array of keys with true values from the permissions object
@@ -53,8 +52,6 @@ const AssignUserPermissions = () => {
         userId,
         assignedRoutes: trueKeys,
       };
-      console.log("values:", values);
-      console.log("Keys with true values:", trueKeys);
       await mutation.mutateAsync(Indata);
       setSubmitting(false);
     },
