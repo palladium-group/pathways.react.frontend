@@ -9,7 +9,7 @@ import async from "./components/Async";
 import AuthLayout from "./layouts/Auth";
 import DashboardLayout from "./layouts/Dashboard";
 // import DocLayout from "./layouts/Doc";
-import HomeLayout from "./layouts/HomeLayout";
+// import HomeLayout from "./layouts/HomeLayout";
 // import PresentationLayout from "./layouts/Presentation";
 
 // Guards
@@ -55,7 +55,7 @@ const routes = [
     path: "/",
     element: (
       <AuthGuard>
-        <HomeLayout />
+        <DashboardLayout />
       </AuthGuard>
     ),
     children: [
