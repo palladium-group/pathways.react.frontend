@@ -14,7 +14,7 @@ const MonitoringAndEvaluation = () => {
           title="MAP-TNC"
           width="100%"
           height="100%"
-          src="https://app.powerbi.com/reportEmbed?reportId=48b4b5d3-c2dd-48fa-9e81-0ceaedb5bb96&autoAuth=true&ctid=e7942974-9738-4a4a-b646-2ab90f79db0f"
+          src="https://app.powerbi.com/view?r=eyJrIjoiYTBmMjhjMWEtNDk0NS00MTljLTk0MzQtYTI2NTIwMjJmODE0IiwidCI6ImU3OTQyOTc0LTk3MzgtNGE0YS1iNjQ2LTJhYjkwZjc5ZGIwZiIsImMiOjF9%22"
           frameBorder="0"
           allowFullScreen={true}></iframe>
       </Grid>

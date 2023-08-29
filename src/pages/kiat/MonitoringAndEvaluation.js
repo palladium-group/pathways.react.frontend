@@ -14,7 +14,7 @@ const MonitoringAndEvaluation = () => {
           title="KIAT M&E"
           width="100%"
           height="100%"
-          src="https://app.powerbi.com/reportEmbed?reportId=aeeca67e-9996-46a2-b6dd-2ad1eb57846c&autoAuth=true&ctid=e7942974-9738-4a4a-b646-2ab90f79db0f"
+          src="https://app.powerbi.com/view?r=eyJrIjoiYTBmMjhjMWEtNDk0NS00MTljLTk0MzQtYTI2NTIwMjJmODE0IiwidCI6ImU3OTQyOTc0LTk3MzgtNGE0YS1iNjQ2LTJhYjkwZjc5ZGIwZiIsImMiOjF9%22"
           frameBorder="0"
           allowFullScreen={true}></iframe>
       </Grid>
