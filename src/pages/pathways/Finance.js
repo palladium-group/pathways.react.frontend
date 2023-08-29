@@ -14,7 +14,7 @@ const Finance = () => {
           title="Pathways Dashboard"
           width="100%"
           height="100%"
-          src="https://app.powerbi.com/view?r=eyJrIjoiYjRiMjlkNDYtNGY4Zi00MGFjLWJkYTctYWNiODQyNDE3YWNiIiwidCI6ImU3OTQyOTc0LTk3MzgtNGE0YS1iNjQ2LTJhYjkwZjc5ZGIwZiIsImMiOjF9&pageName=ReportSection65a564a574790a626c37%22"
+          src="https://app.powerbi.com/view?r=eyJrIjoiYjRiMjlkNDYtNGY4Zi00MGFjLWJkYTctYWNiODQyNDE3YWNiIiwidCI6ImU3OTQyOTc0LTk3MzgtNGE0YS1iNjQ2LTJhYjkwZjc5ZGIwZiIsImMiOjF9&pageName=ReportSection65a564a574790a626c37"
           frameBorder="0"
           allowFullScreen={true}></iframe>
       </Grid>

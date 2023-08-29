@@ -14,7 +14,7 @@ const Finance = () => {
           title="INOVASI"
           width="100%"
           height="100%"
-          src="https://app.powerbi.com/view?r=eyJrIjoiY2Y4ZDQ2YWYtYTI5OC00ODQ1LWE0NmMtZWFiNzU2MTc1MDZiIiwidCI6ImU3OTQyOTc0LTk3MzgtNGE0YS1iNjQ2LTJhYjkwZjc5ZGIwZiIsImMiOjF9%22"
+          src="https://app.powerbi.com/view?r=eyJrIjoiY2Y4ZDQ2YWYtYTI5OC00ODQ1LWE0NmMtZWFiNzU2MTc1MDZiIiwidCI6ImU3OTQyOTc0LTk3MzgtNGE0YS1iNjQ2LTJhYjkwZjc5ZGIwZiIsImMiOjF9&pageName=ReportSection940f31f05eb0cc7340d4"
           frameBorder="0"
           allowFullScreen={true}></iframe>
       </Grid>
