@@ -26,12 +26,12 @@ const navItems = [
         backgroundcolor: "#504F6C",
         children: [
           {
-            title: "Finance",
+            title: "Management",
             href: "/pathways/finance",
             backgroundcolor: "#636084",
           },
           {
-            title: "Monitoring & Evaluation",
+            title: "Results",
             href: "/pathways/monitoring-evaluation",
             backgroundcolor: "#636084",
           },
@@ -49,12 +49,12 @@ const navItems = [
         backgroundcolor: "#D44737",
         children: [
           {
-            title: "Finance",
+            title: "Management",
             href: "/kiat/finance",
             backgroundcolor: "#E36E65",
           },
           {
-            title: "Monitoring & Evaluation",
+            title: "Results",
             href: "/kiat/monitoring-evaluation",
             backgroundcolor: "#E36E65",
           },
@@ -72,12 +72,12 @@ const navItems = [
         backgroundcolor: "#3B4596",
         children: [
           {
-            title: "Finance",
+            title: "Management",
             href: "/inovasi/finance",
             backgroundcolor: "#4F5595",
           },
           {
-            title: "Monitoring & Evaluation",
+            title: "Results",
             href: "/pathways/monitoring-evaluation",
             backgroundcolor: "#4F5595",
           },
@@ -93,11 +93,11 @@ const navItems = [
         href: "/nauru",
         children: [
           {
-            title: "Finance",
+            title: "Management",
             href: "/nauru/finance",
           },
           {
-            title: "Monitoring & Evaluation",
+            title: "Results",
             href: "/nauru/monitoring-evaluation",
           },
         ],
@@ -112,11 +112,11 @@ const navItems = [
         href: "/map-tnc",
         children: [
           {
-            title: "Finance",
+            title: "Management",
             href: "/map-tnc/finance",
           },
           {
-            title: "Monitoring & Evaluation",
+            title: "Results",
             href: "/map-tnc/monitoring-evaluation",
           },
         ],
@@ -131,11 +131,11 @@ const navItems = [
         href: "/tautua",
         children: [
           {
-            title: "Finance",
+            title: "Management",
             href: "/tautua/finance",
           },
           {
-            title: "Monitoring & Evaluation",
+            title: "Results",
             href: "/tautua/monitoring-evaluation",
           },
         ],
