@@ -34,13 +34,13 @@ function NavbarUserDropdown() {
 
   return (
     <React.Fragment>
-      <Tooltip title="Account">
+      <Tooltip title="Account" sx={{ height: "25px" }}>
         <IconButton
           aria-owns={anchorMenu ? "menu-appbar" : undefined}
           aria-haspopup="true"
           onClick={toggleMenu}
           color="inherit"
-          size="large">
+          size="small">
           <Power />
         </IconButton>
       </Tooltip>

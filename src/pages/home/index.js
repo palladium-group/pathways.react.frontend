@@ -1,46 +1,21 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import {
-  Box,
-  Card as MuiCard,
-  CardContent as MuiCardContent,
-  CardMedia,
-  Divider as MuiDivider,
-  Grid,
-  Paper,
-  CardActionArea,
-  Typography,
-  Tab,
-  TextField,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  ListItemIcon,
-  Stack,
-  Chip,
-} from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import styled from "@emotion/styled";
-import { spacing } from "@mui/system";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import SearchIcon from "@mui/icons-material/Search";
-import PlaceIcon from "@mui/icons-material/Place";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-
-import ContentImpact from "./ContentImpact";
-import ContentLeadership from "./ContentLeadership";
+import { CardMedia, Grid, Paper } from "@mui/material";
+//import useMediaQuery from "@mui/material/useMediaQuery";
+//import { useTheme } from "@mui/material/styles";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import { styled } from "@mui/material/styles";
 
 import FirstImg from "../../vendor/banner-image.png";
-
-const Card = styled(MuiCard)(spacing);
-const CardContent = styled(MuiCardContent)(spacing);
-const Divider = styled(MuiDivider)(spacing);
-const Spacer = styled.div(spacing);
+import TauTauImg from "../../vendor/tautau-logo.png";
+import MAPTNCImg from "../../vendor/map-tnc-logo.png";
+import GlobalMapImg from "../../vendor/global-map.png";
+import PathwayImg from "../../vendor/pathway-logo.png";
+import KiatImg from "../../vendor/kiat-logo.png";
+import InovasiImg from "../../vendor/inovasi-logo.png";
 
 // const Avatar = styled(MuiAvatar)`
 //   display: inline-block;
@@ -48,6 +23,7 @@ const Spacer = styled.div(spacing);
 //   width: 80px;
 // `;
 
+/*
 const EventContent = ({ value, handleChange }) => {
   return (
     <Box>
@@ -140,26 +116,26 @@ const EventContent = ({ value, handleChange }) => {
                 </TabContext>
               </Box>
 
-              {/*Sample Event 1:*/}
-              {/*Event name: NextGen IP Working Group (ICL + PSAs)*/}
-              {/*Event location: Microsoft Teams*/}
-              {/*(Optional) Event description: Quarterly Supply Meeting*/}
-              {/*Date: Jan 27, 2023*/}
-              {/*Time: 0900 EST*/}
+              {/!*Sample Event 1:*!/}
+              {/!*Event name: NextGen IP Working Group (ICL + PSAs)*!/}
+              {/!*Event location: Microsoft Teams*!/}
+              {/!*(Optional) Event description: Quarterly Supply Meeting*!/}
+              {/!*Date: Jan 27, 2023*!/}
+              {/!*Time: 0900 EST*!/}
 
-              {/*Sample Event 2:*/}
-              {/*Event name: Monthly MIS Systems Maintenance and Review Meeting*/}
-              {/*Event location: NextGen ICL HQ Office*/}
-              {/*(Optional) Event description: HQ + Country Office MIS Leads*/}
-              {/*Date: Feb 6, 2023*/}
-              {/*Time: 1100 EST*/}
+              {/!*Sample Event 2:*!/}
+              {/!*Event name: Monthly MIS Systems Maintenance and Review Meeting*!/}
+              {/!*Event location: NextGen ICL HQ Office*!/}
+              {/!*(Optional) Event description: HQ + Country Office MIS Leads*!/}
+              {/!*Date: Feb 6, 2023*!/}
+              {/!*Time: 1100 EST*!/}
 
-              {/*Sample Event 3:*/}
-              {/*Event name: Quarterly Progress Report Inputs*/}
-              {/*Event location: N/A- Via Email*/}
-              {/*(Optional) Event description: All Team Leaders to review and finalize QPR reviews*/}
-              {/*Date: Mar 10, 2023*/}
-              {/*Time: 1700 EST*/}
+              {/!*Sample Event 3:*!/}
+              {/!*Event name: Quarterly Progress Report Inputs*!/}
+              {/!*Event location: N/A- Via Email*!/}
+              {/!*(Optional) Event description: All Team Leaders to review and finalize QPR reviews*!/}
+              {/!*Date: Mar 10, 2023*!/}
+              {/!*Time: 1700 EST*!/}
             </CardContent>
           </CardActionArea>
         </Card>
@@ -248,7 +224,7 @@ const QuickLinksContent = () => {
                   href="https://palladium.blackboard.com/"
                   clickable
                 />
-                {/*<Chip label="Training" component="a" />*/}
+                {/!*<Chip label="Training" component="a" />*!/}
               </Stack>
             </CardContent>
           </CardActionArea>
@@ -257,24 +233,151 @@ const QuickLinksContent = () => {
     </Box>
   );
 };
+*/
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#F7F9FC" : "#F7F9FC",
+  ...theme.typography.body2,
+  padding: "5px",
+  textAlign: "left",
+  minHeight: "130px",
+  color: theme.palette.text.secondary,
+}));
+
+/*
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#845EBC"),
+  backgroundColor: "#845EBC",
+  "&:hover": {
+    backgroundColor: "#E19133",
+    color: "#fff",
+  },
+}));
+*/
 
 const Home = () => {
-  const theme = useTheme();
-  const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
+  //const theme = useTheme();
+  //const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
 
-  const [value, setValue] = React.useState("1");
-  const handleChange = (event, newValue) => {
+  //const [value, setValue] = React.useState("1");
+  /*  const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
+  };*/
 
   return (
     <React.Fragment>
       <Helmet title="Home" />
       <Paper square={true} sx={{ width: "100%" }}>
-        <CardMedia component="img" sx={{ height: 220, objectFit: "fill" }} image={FirstImg} />
+        <CardMedia component="img" sx={{ height: "15vh", objectFit: "fill" }} image={FirstImg} />
       </Paper>
-      <Grid container spacing={2} p={isLgUp ? 12 : 5}>
-        <Grid container direction="row" alignItems="stretch" spacing={2}>
+      <Grid container spacing={2} p={0}>
+        <Grid item xs={12}>
+          <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+            <CardMedia
+              component="img"
+              sx={{ paddingTop: "15px", height: "65vh", width: "60%", objectFit: "fill" }}
+              image={GlobalMapImg}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <Item>
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={0}
+              sx={{ backgroundColor: "#F7F9FC" }}>
+              <Grid item xs={2}>
+                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
+                  <CardContent>
+                    <CardMedia
+                      component="img"
+                      sx={{ height: "5vh", objectFit: "fill" }}
+                      image={PathwayImg}
+                    />
+                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Divider orientation="vertical" variant="middle" flexItem>
+                -
+              </Divider>
+              <Grid item xs={2}>
+                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
+                  <CardContent>
+                    <CardMedia
+                      component="img"
+                      sx={{ height: "5h", objectFit: "fill" }}
+                      image={KiatImg}
+                    />
+                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Divider orientation="vertical" variant="middle" flexItem>
+                -
+              </Divider>
+              <Grid item xs={2}>
+                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
+                  <CardContent>
+                    <CardMedia
+                      component="img"
+                      sx={{ height: "5vh", objectFit: "fill" }}
+                      image={InovasiImg}
+                    />
+                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Divider orientation="vertical" variant="middle" flexItem>
+                -
+              </Divider>
+
+              <Grid item xs={2}>
+                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
+                  <CardContent>
+                    <CardMedia
+                      component="img"
+                      sx={{ height: "5vh", objectFit: "fill" }}
+                      image={MAPTNCImg}
+                    />
+
+                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Divider orientation="vertical" variant="middle" flexItem>
+                -
+              </Divider>
+              <Grid item xs={2}>
+                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
+                  <CardContent>
+                    <CardMedia
+                      component="img"
+                      sx={{ height: "5vh", objectFit: "fill" }}
+                      image={TauTauImg}
+                    />
+                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Item>
+        </Grid>
+
+        {/*        <Grid container direction="row" alignItems="stretch" spacing={2}>
           <Grid item xs={4}>
             <EventContent value={value} handleChange={handleChange} />
           </Grid>
@@ -284,8 +387,9 @@ const Home = () => {
           <Grid item xs={4}>
             <QuickLinksContent />
           </Grid>
-        </Grid>
+        </Grid>*/}
       </Grid>
+      {/*      <Grid container direction="row" alignItems="stretch" spacing={2}></Grid>
       <Grid container direction="row" alignItems="stretch" spacing={2} p={isLgUp ? 12 : 5}>
         <Grid item xs={8} sx={{ display: "flex" }}>
           <Box>
@@ -320,6 +424,7 @@ const Home = () => {
           </Box>
         </Grid>
       </Grid>
+   */}
     </React.Fragment>
   );
 };
