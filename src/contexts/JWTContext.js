@@ -137,7 +137,12 @@ function AuthProvider({ children }) {
     });
   };
 
-  const resetPassword = (email) => console.log(email);
+  const resetPassword = async (email, password) => {
+    await axios.post(`${url}reset-password`, {
+      email,
+      newPassword: password,
+    });
+  };
 
   return (
     <AuthContext.Provider

@@ -19,6 +19,7 @@ import SignIn from "./pages/auth/SignIn";
 // Auth components
 import Page404 from "./pages/auth/Page404";
 import Page500 from "./pages/auth/Page500";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 // Landing
 // import Landing from "./pages/presentation/Landing";
@@ -184,6 +185,10 @@ const routes = [
       {
         path: "sign-in",
         element: <SignIn />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
       },
       {
         path: "404",
