@@ -50,6 +50,11 @@ const MapTNCFinance = async(() => import("./pages/map-tnc/Finance"));
 const Users = async(() => import("./pages/users/index"));
 const RegisterUser = async(() => import("./pages/users/RegisterUser"));
 const UserPermissions = async(() => import("./pages/users/UserPermissions"));
+//Content Management
+const ContentManagement = async(() => import("./pages/content-management/index"));
+const NewProject = async(() => import("./pages/content-management/NewProject"));
+const NewProjectLink = async(() => import("./pages/content-management/NewProjectLink"));
+const UniversalComponent = async(() => import("./pages/content-management/UniversalComponent"));
 
 const routes = [
   {
@@ -63,6 +68,20 @@ const routes = [
       {
         path: "",
         element: <Home />,
+      },
+    ],
+  },
+  {
+    path: "universal-route",
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
+    children: [
+      {
+        path: "home/:projectLinkId",
+        element: <UniversalComponent />,
       },
     ],
   },
@@ -175,6 +194,22 @@ const routes = [
       {
         path: "assign-user-permissions/:userId",
         element: <UserPermissions />,
+      },
+      {
+        path: "content-management",
+        element: <ContentManagement />,
+      },
+      {
+        path: "new-project",
+        element: <NewProject />,
+      },
+      {
+        path: "new-project-link/:projectId",
+        element: <NewProjectLink />,
+      },
+      {
+        path: "new-project-link/:projectId/:projectLinkId",
+        element: <NewProjectLink />,
       },
     ],
   },

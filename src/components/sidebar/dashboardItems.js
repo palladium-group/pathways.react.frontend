@@ -3,6 +3,9 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import TipsAndUpdatesOutlinedIcon from "@mui/icons-material/TipsAndUpdatesOutlined";
 import LocalConvenienceStoreOutlinedIcon from "@mui/icons-material/LocalConvenienceStoreOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
+import AcUnitOutlinedIcon from "@mui/icons-material/AcUnitOutlined";
+import ContactlessOutlinedIcon from "@mui/icons-material/ContactlessOutlined";
+import FitbitOutlinedIcon from "@mui/icons-material/FitbitOutlined";
 
 const navItems = [
   {
@@ -91,6 +94,7 @@ const navItems = [
       {
         title: "Nauru",
         href: "/nauru",
+        icon: AcUnitOutlinedIcon,
         children: [
           {
             title: "Management",
@@ -110,6 +114,7 @@ const navItems = [
       {
         title: "MAP-TNC",
         href: "/map-tnc",
+        icon: FitbitOutlinedIcon,
         children: [
           {
             title: "Management",
@@ -129,6 +134,7 @@ const navItems = [
       {
         title: "Tautua",
         href: "/tautua",
+        icon: ContactlessOutlinedIcon,
         children: [
           {
             title: "Management",
@@ -153,6 +159,10 @@ const navItems = [
           {
             title: "Users",
             href: "/admin/users",
+          },
+          {
+            title: "Content Management",
+            href: "/admin/content-management",
           },
         ],
       },

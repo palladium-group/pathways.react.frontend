@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Outlet } from "react-router-dom";
 
 import { Box, CssBaseline, Paper as MuiPaper } from "@mui/material";
-//import { useTheme } from "@mui/material/styles";
-//import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { spacing } from "@mui/system";
 
 import GlobalStyle from "../components/GlobalStyle";
 import Navbar from "../components/navbar/Navbar";
-import dashboardItems from "../components/sidebar/dashboardItems";
+// import dashboardItems from "../components/sidebar/dashboardItems";
 import Sidebar from "../components/sidebar/Sidebar";
 import Footer from "../components/Footer";
 import { useQuery } from "@tanstack/react-query";
 import { getUserPermissions } from "../api/user";
 import useAuth from "../hooks/useAuth";
+import { getAllProjects } from "../api/project";
+import * as MuiIcon from "@mui/icons-material";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 // import Settings from "../components/Settings";
 
 const drawerWidth = 258;
@@ -54,6 +58,19 @@ const MainContent = styled(Paper)`
 `;
 
 const Dashboard = ({ children }) => {
+  const [navItems, setNavItems] = useState([
+    {
+      title: "home",
+      pages: [
+        {
+          title: "Home",
+          href: "/",
+          icon: HomeOutlinedIcon,
+          backgroundcolor: "#000000",
+        },
+      ],
+    },
+  ]);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user } = useAuth();
 
@@ -61,18 +78,90 @@ const Dashboard = ({ children }) => {
     setMobileOpen(!mobileOpen);
   };
 
-  //const theme = useTheme();
-  //const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
+  const theme = useTheme();
+  const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
 
+  const {
+    isLoading: isLoadingProject,
+    isError: isErrorProject,
+    data: ProjectsData,
+  } = useQuery(["getAllProjects"], getAllProjects, {
+    refetchOnWindowFocus: false,
+    refetchOnmount: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
   const { isLoading, isError, data } = useQuery(["getUserPermissions"], getUserPermissions);
 
+  useEffect(() => {
+    if (!isErrorProject && !isLoadingProject) {
+      const links = ProjectsData.data;
+      for (const link of links) {
+        const Icon = MuiIcon[link.icon];
+        const newItem = {
+          title: link.name,
+          pages: [
+            {
+              title: link.name,
+              href: "/",
+              icon: Icon,
+              backgroundcolor: link.color,
+              children: [],
+            },
+          ],
+        };
+        if (link.projectLinks.length > 0) {
+          for (const projectLink of link.projectLinks) {
+            newItem.pages[0].children.push({
+              title: projectLink.name,
+              href: `/universal-route/home/${projectLink.id}`,
+              backgroundcolor: projectLink.color,
+            });
+          }
+        }
+        // console.log(newItem);
+        setNavItems((prevArray) => [...prevArray, newItem]);
+      }
+      setNavItems((prevArray) => [
+        ...prevArray,
+        {
+          title: "Administration",
+          pages: [
+            {
+              title: "Administration",
+              href: "/admin",
+              icon: SupervisorAccountOutlinedIcon,
+              children: [
+                {
+                  title: "Users",
+                  href: "/admin/users",
+                },
+                {
+                  title: "Content Management",
+                  href: "/admin/content-management",
+                },
+              ],
+            },
+          ],
+        },
+      ]);
+    }
+  }, [isLoadingProject, isErrorProject]);
   if (isLoading) {
+    return "...loading";
+  }
+
+  if (isLoadingProject) {
     return "...loading";
   }
 
   if (isError) {
     return "...error";
   }
+  if (isErrorProject) {
+    return "...error";
+  }
+  // console.log(ProjectsData);
   // Function to check if the user has permission to access a route
   const hasPermission = (route) => {
     const userPermissions = data.data;
@@ -98,7 +187,7 @@ const Dashboard = ({ children }) => {
   };
 
   // Filter the dashboardItems based on user's permissions
-  const filteredDashboardItems = dashboardItems.map((item) => {
+  const filteredDashboardItems = navItems.map((item) => {
     const pagesWithPermission = filterPagesWithPermission(item.pages);
     return { ...item, pages: pagesWithPermission };
   });
@@ -116,7 +205,7 @@ const Dashboard = ({ children }) => {
             onClose={handleDrawerToggle}
             items={
               user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
-                ? dashboardItems
+                ? navItems
                 : filteredDashboardItems
             }
           />
@@ -126,7 +215,7 @@ const Dashboard = ({ children }) => {
             PaperProps={{ style: { width: drawerWidth } }}
             items={
               user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
-                ? dashboardItems
+                ? navItems
                 : filteredDashboardItems
             }
           />
@@ -134,7 +223,7 @@ const Dashboard = ({ children }) => {
       </Drawer>
       <AppContent>
         <Navbar onDrawerToggle={handleDrawerToggle} />
-        <MainContent sx={{ padding: "5px" }}>
+        <MainContent p={isLgUp ? 12 : 5}>
           {children}
           <Outlet />
         </MainContent>
