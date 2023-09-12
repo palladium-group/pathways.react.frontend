@@ -98,28 +98,28 @@ const Dashboard = ({ children }) => {
       const links = ProjectsData.data;
       for (const link of links) {
         const Icon = MuiIcon[link.icon];
-        const newItem = {
-          title: link.name,
-          pages: [
-            {
-              title: link.name,
-              href: "/",
-              icon: Icon,
-              backgroundcolor: link.color,
-              children: [],
-            },
-          ],
-        };
+        const children = [];
         if (link.projectLinks.length > 0) {
           for (const projectLink of link.projectLinks) {
-            newItem.pages[0].children.push({
+            children.push({
               title: projectLink.name,
               href: `/universal-route/home/${projectLink.id}`,
               backgroundcolor: projectLink.color,
             });
           }
         }
-        // console.log(newItem);
+        const newItem = {
+          title: link.name,
+          pages: [
+            {
+              title: link.name,
+              href: "/universal-route/home",
+              icon: Icon,
+              backgroundcolor: link.color,
+              children: children,
+            },
+          ],
+        };
         setNavItems((prevArray) => [...prevArray, newItem]);
       }
       setNavItems((prevArray) => [
