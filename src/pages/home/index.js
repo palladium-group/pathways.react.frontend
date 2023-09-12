@@ -5,7 +5,7 @@ import { CardMedia, Grid, Paper } from "@mui/material";
 //import { useTheme } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import { styled } from "@mui/material/styles";
 
@@ -307,7 +307,7 @@ const Home = () => {
                       sx={{ height: "5vh", objectFit: "fill" }}
                       image={PathwayImg}
                     />
-                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
                   </CardContent>
                 </Card>
               </Grid>
@@ -322,7 +322,7 @@ const Home = () => {
                       sx={{ height: "5h", objectFit: "fill" }}
                       image={KiatImg}
                     />
-                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
                   </CardContent>
                 </Card>
               </Grid>
@@ -337,7 +337,7 @@ const Home = () => {
                       sx={{ height: "5vh", objectFit: "fill" }}
                       image={InovasiImg}
                     />
-                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
                   </CardContent>
                 </Card>
               </Grid>
@@ -354,7 +354,7 @@ const Home = () => {
                       image={MAPTNCImg}
                     />
 
-                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
                   </CardContent>
                 </Card>
               </Grid>
@@ -369,7 +369,7 @@ const Home = () => {
                       sx={{ height: "5vh", objectFit: "fill" }}
                       image={TauTauImg}
                     />
-                    <Typography sx={{ fontSize: 12 }}>some text</Typography>
+                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
                   </CardContent>
                 </Card>
               </Grid>
