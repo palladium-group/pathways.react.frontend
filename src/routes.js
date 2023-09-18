@@ -55,6 +55,7 @@ const ContentManagement = async(() => import("./pages/content-management/index")
 const NewProject = async(() => import("./pages/content-management/NewProject"));
 const NewProjectLink = async(() => import("./pages/content-management/NewProjectLink"));
 const UniversalComponent = async(() => import("./pages/content-management/UniversalComponent"));
+const Projects = async(() => import("./pages/content-management/Projects"));
 
 const routes = [
   {
@@ -200,7 +201,15 @@ const routes = [
         element: <ContentManagement />,
       },
       {
+        path: "projects",
+        element: <Projects />,
+      },
+      {
         path: "new-project",
+        element: <NewProject />,
+      },
+      {
+        path: "new-project/:projectId",
         element: <NewProject />,
       },
       {

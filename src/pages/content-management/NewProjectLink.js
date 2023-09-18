@@ -45,7 +45,7 @@ const NewProjectLinkForm = () => {
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Required"),
       url: Yup.string().required("Required"),
-      color: Yup.string().required("Required"),
+      color: Yup.string(),
     }),
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       try {

@@ -14,6 +14,10 @@ export const getProjectById = async ({ queryKey }) => {
   return await axios.get(`${apiRoutes.project}/getProjectById/${projectId}`);
 };
 
+export const updateProject = async (values) => {
+  return await axios.post(`${apiRoutes.project}/update`, values);
+};
+
 export const getProjectLinksByProjectId = async ({ queryKey }) => {
   const [, projectId] = queryKey;
   return await axios.get(`${apiRoutes.projectLinks}/getProjectLinks/${projectId}`);

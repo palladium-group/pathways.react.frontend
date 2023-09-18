@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   Box,
@@ -9,21 +9,32 @@ import {
   Divider,
   Grid,
   Link,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import Card from "@mui/material/Card";
 import { Save } from "@mui/icons-material";
-import { useMutation } from "@tanstack/react-query";
-import { newProject } from "../../api/project";
+import * as MuiIcon from "@mui/icons-material";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getProjectById, newProject, updateProject } from "../../api/project";
+
+// Create an array of all available MUI icons
+const allMuiIcons = Object.keys(MuiIcon);
 
 const NewProjectForm = () => {
+  let { projectId } = useParams();
   const navigate = useNavigate();
+  const { isLoading, isError, data } = useQuery(["getProjectById", projectId], getProjectById, {
+    enabled: !!projectId,
+  });
   const mutation = useMutation({ mutationFn: newProject });
+  const updateMutation = useMutation({ mutationFn: updateProject });
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -33,12 +44,16 @@ const NewProjectForm = () => {
     validationSchema: Yup.object().shape({
       name: Yup.string().required("Required"),
       icon: Yup.string().required("Required"),
-      color: Yup.string().required("Required"),
+      color: Yup.string(),
     }),
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       try {
-        console.log(values);
-        await mutation.mutateAsync(values);
+        if (projectId) {
+          values.projectId = projectId;
+          await updateMutation.mutateAsync(values);
+        } else {
+          await mutation.mutateAsync(values);
+        }
         toast("Successfully Registered User", {
           type: "success",
         });
@@ -52,6 +67,15 @@ const NewProjectForm = () => {
       }
     },
   });
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      formik.setValues({
+        name: data.data.name,
+        icon: data.data.icon,
+        color: data.data.color,
+      });
+    }
+  }, [isLoading, isError, data]);
   return (
     <form onSubmit={formik.handleSubmit}>
       <Card mb={12}>
@@ -85,18 +109,39 @@ const NewProjectForm = () => {
                   />
                 </Grid>
                 <Grid item md={12}>
-                  <TextField
+                  <Select
                     name="icon"
                     label="Project Icon"
                     value={formik.values.icon}
                     error={Boolean(formik.touched.icon && formik.errors.icon)}
                     fullWidth
-                    helperText={formik.touched.icon && formik.errors.icon}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     variant="outlined"
-                    my={2}
-                  />
+                    my={2}>
+                    {/* Render MenuItem for each MUI icon */}
+                    {allMuiIcons.map((iconName, index) => {
+                      const Icon = MuiIcon[iconName];
+                      return (
+                        <MenuItem key={index} value={iconName}>
+                          <Icon /> {iconName}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                  {/* Display the selected icon */}
+                  {/*<TextField*/}
+                  {/*  name="icon"*/}
+                  {/*  label="Project Icon"*/}
+                  {/*  value={formik.values.icon}*/}
+                  {/*  error={Boolean(formik.touched.icon && formik.errors.icon)}*/}
+                  {/*  fullWidth*/}
+                  {/*  helperText={formik.touched.icon && formik.errors.icon}*/}
+                  {/*  onBlur={formik.handleBlur}*/}
+                  {/*  onChange={formik.handleChange}*/}
+                  {/*  variant="outlined"*/}
+                  {/*  my={2}*/}
+                  {/*/>*/}
                 </Grid>
                 <Grid item md={12}>
                   <TextField
