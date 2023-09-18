@@ -19,7 +19,9 @@ import SignIn from "./pages/auth/SignIn";
 // Auth components
 import Page404 from "./pages/auth/Page404";
 import Page500 from "./pages/auth/Page500";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+import ConfirmPasswordLinkSent from "./pages/auth/ConfirmPasswordLinkSent";
 
 // Landing
 // import Landing from "./pages/presentation/Landing";
@@ -231,7 +233,15 @@ const routes = [
         element: <SignIn />,
       },
       {
-        path: "reset-password",
+        path: "forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "confirm-password-link",
+        element: <ConfirmPasswordLinkSent />,
+      },
+      {
+        path: "reset-password/:token",
         element: <ResetPassword />,
       },
       {

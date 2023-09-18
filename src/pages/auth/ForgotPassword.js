@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 import { Paper, Typography } from "@mui/material";
 
 import { ReactComponent as Logo } from "../../vendor/logo.svg";
-import ResetPasswordComponent from "../../components/auth/ResetPassword";
+import ForgotPasswordComponent from "../../components/auth/ForgotPassword";
 
 const Brand = styled(Logo)`
   fill: ${(props) => props.theme.palette.primary.main};
@@ -22,23 +22,24 @@ const Wrapper = styled(Paper)`
   }
 `;
 
-const ResetPassword = () => {
+function ForgotPassword() {
   return (
     <React.Fragment>
       <Brand />
       <Wrapper>
-        <Helmet title="Reset Password" />
+        <Helmet title="Forgot Password" />
 
         <Typography component="h1" variant="h4" align="center" gutterBottom>
-          Reset Password
+          Forgot Password
         </Typography>
         <Typography component="h2" variant="body1" align="center">
-          Enter your new password
+          Enter your email to reset your password
         </Typography>
 
-        <ResetPasswordComponent />
+        <ForgotPasswordComponent />
       </Wrapper>
     </React.Fragment>
   );
-};
-export default ResetPassword;
+}
+
+export default ForgotPassword;
