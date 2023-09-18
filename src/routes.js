@@ -19,7 +19,9 @@ import SignIn from "./pages/auth/SignIn";
 // Auth components
 import Page404 from "./pages/auth/Page404";
 import Page500 from "./pages/auth/Page500";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+import ConfirmPasswordLinkSent from "./pages/auth/ConfirmPasswordLinkSent";
 
 // Landing
 // import Landing from "./pages/presentation/Landing";
@@ -55,6 +57,7 @@ const ContentManagement = async(() => import("./pages/content-management/index")
 const NewProject = async(() => import("./pages/content-management/NewProject"));
 const NewProjectLink = async(() => import("./pages/content-management/NewProjectLink"));
 const UniversalComponent = async(() => import("./pages/content-management/UniversalComponent"));
+const Projects = async(() => import("./pages/content-management/Projects"));
 
 const routes = [
   {
@@ -200,7 +203,15 @@ const routes = [
         element: <ContentManagement />,
       },
       {
+        path: "projects",
+        element: <Projects />,
+      },
+      {
         path: "new-project",
+        element: <NewProject />,
+      },
+      {
+        path: "new-project/:projectId",
         element: <NewProject />,
       },
       {
@@ -222,7 +233,15 @@ const routes = [
         element: <SignIn />,
       },
       {
-        path: "reset-password",
+        path: "forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "confirm-password-link",
+        element: <ConfirmPasswordLinkSent />,
+      },
+      {
+        path: "reset-password/:token",
         element: <ResetPassword />,
       },
       {

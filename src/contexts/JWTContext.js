@@ -137,10 +137,16 @@ function AuthProvider({ children }) {
     });
   };
 
-  const resetPassword = async (email, password) => {
-    await axios.post(`${url}reset-password`, {
+  const resetPassword = async (email) => {
+    await axios.post(`${url}reset-password/request`, {
       email,
+    });
+  };
+
+  const setNewPassword = async (password, token) => {
+    await axios.post(`${url}reset-password/new-password`, {
       newPassword: password,
+      resetToken: token,
     });
   };
 
@@ -153,6 +159,7 @@ function AuthProvider({ children }) {
         signOut,
         signUp,
         resetPassword,
+        setNewPassword,
       }}>
       {children}
     </AuthContext.Provider>

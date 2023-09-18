@@ -8,6 +8,7 @@ import { Formik } from "formik";
 
 import { Alert as MuiAlert, Button, TextField as MuiTextField } from "@mui/material";
 import { spacing } from "@mui/system";
+import { useParams } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
 
@@ -17,31 +18,34 @@ const TextField = styled(MuiTextField)(spacing);
 
 function ResetPassword() {
   const navigate = useNavigate();
-  const { resetPassword } = useAuth();
+  const { setNewPassword } = useAuth();
+  const { token } = useParams();
+
+  const getCharacterValidationError = (str) => {
+    return `Your password must have at least 1 ${str} character`;
+  };
 
   return (
     <Formik
       initialValues={{
-        email: "",
         password: "",
+        confirmPassword: "",
         submit: false,
       }}
       validationSchema={Yup.object().shape({
-        email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
         password: Yup.string()
-          .required()
-          .min(
-            8,
-            "Password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special",
-          )
-          .minLowercase(1, "password must contain at least 1 lower case letter")
-          .minUppercase(1, "password must contain at least 1 upper case letter")
-          .minNumbers(1, "password must contain at least 1 number")
-          .minSymbols(1, "password must contain at least 1 special character"),
+          .required("Please enter a password")
+          .min(8, "Password must have at least 8 characters")
+          .matches(/[0-9]/, getCharacterValidationError("digit"))
+          .matches(/[a-z]/, getCharacterValidationError("lowercase"))
+          .matches(/[A-Z]/, getCharacterValidationError("uppercase")),
+        confirmPassword: Yup.string()
+          .required("Please re-type your password")
+          .oneOf([Yup.ref("password")], "Passwords does not match"),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          resetPassword(values.email, values.password);
+          setNewPassword(values.password, token);
           navigate("/auth/sign-in");
         } catch (error) {
           const message = error.message || "Something went wrong";
@@ -59,18 +63,6 @@ function ResetPassword() {
             </Alert>
           )}
           <TextField
-            type="email"
-            name="email"
-            label="Email Address"
-            value={values.email}
-            error={Boolean(touched.email && errors.email)}
-            fullWidth
-            helperText={touched.email && errors.email}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            my={3}
-          />
-          <TextField
             type="password"
             name="password"
             label="Password"
@@ -81,6 +73,20 @@ function ResetPassword() {
             onBlur={handleBlur}
             onChange={handleChange}
             my={3}
+            autoComplete="new-password"
+          />
+          <TextField
+            type="password"
+            name="confirmPassword"
+            label="Confirm Password"
+            value={values.confirmPassword}
+            error={Boolean(touched.confirmPassword && errors.confirmPassword)}
+            fullWidth
+            helperText={touched.confirmPassword && errors.confirmPassword}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            my={3}
+            autoComplete="new-password"
           />
           <Button
             type="submit"
@@ -88,7 +94,7 @@ function ResetPassword() {
             variant="contained"
             color="primary"
             disabled={isSubmitting}>
-            Reset password
+            Submit
           </Button>
         </form>
       )}

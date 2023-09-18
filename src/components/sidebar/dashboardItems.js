@@ -164,6 +164,10 @@ const navItems = [
             title: "Content Management",
             href: "/admin/content-management",
           },
+          {
+            title: "Projects",
+            href: "/admin/projects",
+          },
         ],
       },
     ],
