@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Add } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-// import * as MuiIcon from "@mui/icons-material";
+import * as MuiIcon from "@mui/icons-material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../../api/project";
@@ -29,9 +29,9 @@ const ContentDataGrid = () => {
   }
 
   const getIcon = (iconName) => {
-    if (iconName) {
-      // const Icon = MuiIcon[iconName];
-      // return <Icon />;
+    if (iconName && Object.prototype.hasOwnProperty.call(MuiIcon, iconName)) {
+      const Icon = MuiIcon[iconName];
+      return <Icon />;
     }
     return <div />;
   };
