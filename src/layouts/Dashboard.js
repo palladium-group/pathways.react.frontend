@@ -13,8 +13,8 @@ import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/sidebar/Sidebar";
 import Footer from "../components/Footer";
 import { useQuery } from "@tanstack/react-query";
-import { getUserPermissions } from "../api/user";
-import useAuth from "../hooks/useAuth";
+// import { getUserPermissions } from "../api/user";
+// import useAuth from "../hooks/useAuth";
 import { getAllProjects } from "../api/project";
 import * as MuiIcon from "@mui/icons-material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -72,7 +72,7 @@ const Dashboard = ({ children }) => {
     },
   ]);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -91,7 +91,7 @@ const Dashboard = ({ children }) => {
     refetchOnReconnect: false,
     retry: false,
   });
-  const { isLoading, isError, data } = useQuery(["getUserPermissions"], getUserPermissions);
+  // const { isLoading, isError, data } = useQuery(["getUserPermissions"], getUserPermissions);
 
   useEffect(() => {
     if (!isErrorProject && !isLoadingProject) {
@@ -151,50 +151,50 @@ const Dashboard = ({ children }) => {
       ]);
     }
   }, [isLoadingProject, isErrorProject]);
-  if (isLoading) {
-    return "...loading";
-  }
+  // if (isLoading) {
+  //   return "...loading";
+  // }
 
   if (isLoadingProject) {
     return "...loading";
   }
 
-  if (isError) {
-    return "...error";
-  }
+  // if (isError) {
+  //   return "...error";
+  // }
   if (isErrorProject) {
     return "...error";
   }
   // console.log(ProjectsData);
   // Function to check if the user has permission to access a route
-  const hasPermission = (route) => {
-    const userPermissions = data.data;
-    const permissions = userPermissions.filter((obj) => obj === route);
-    if (permissions && permissions.length > 0) {
-      // Check if the user has at least one of the required permissions
-      return true; // You can modify this logic as needed based on your use case
-    }
-    // If user's permissions are not specified, deny access by default
-    return false;
-  };
+  // const hasPermission = (route) => {
+  //   const userPermissions = data.data;
+  //   const permissions = userPermissions.filter((obj) => obj === route);
+  //   if (permissions && permissions.length > 0) {
+  //     // Check if the user has at least one of the required permissions
+  //     return true; // You can modify this logic as needed based on your use case
+  //   }
+  //   // If user's permissions are not specified, deny access by default
+  //   return false;
+  // };
 
   // Recursive function to filter pages and their children based on user permissions
-  const filterPagesWithPermission = (pages) => {
-    return pages.reduce((filteredPages, page) => {
-      if (hasPermission(page.href)) {
-        const filteredChildren = page.children ? filterPagesWithPermission(page.children) : null;
-        const filteredPage = filteredChildren ? { ...page, children: filteredChildren } : page;
-        filteredPages.push(filteredPage);
-      }
-      return filteredPages;
-    }, []);
-  };
+  // const filterPagesWithPermission = (pages) => {
+  //   return pages.reduce((filteredPages, page) => {
+  //     if (hasPermission(page.href)) {
+  //       const filteredChildren = page.children ? filterPagesWithPermission(page.children) : null;
+  //       const filteredPage = filteredChildren ? { ...page, children: filteredChildren } : page;
+  //       filteredPages.push(filteredPage);
+  //     }
+  //     return filteredPages;
+  //   }, []);
+  // };
 
   // Filter the dashboardItems based on user's permissions
-  const filteredDashboardItems = navItems.map((item) => {
-    const pagesWithPermission = filterPagesWithPermission(item.pages);
-    return { ...item, pages: pagesWithPermission };
-  });
+  // const filteredDashboardItems = navItems.map((item) => {
+  //   const pagesWithPermission = filterPagesWithPermission(item.pages);
+  //   return { ...item, pages: pagesWithPermission };
+  // });
 
   return (
     <Root>
@@ -207,22 +207,11 @@ const Dashboard = ({ children }) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            items={
-              user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
-                ? navItems
-                : filteredDashboardItems
-            }
+            items={navItems}
           />
         </Box>
         <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <Sidebar
-            PaperProps={{ style: { width: drawerWidth } }}
-            items={
-              user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
-                ? navItems
-                : filteredDashboardItems
-            }
-          />
+          <Sidebar PaperProps={{ style: { width: drawerWidth } }} items={navItems} />
         </Box>
       </Drawer>
       <AppContent>
