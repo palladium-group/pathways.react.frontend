@@ -25,8 +25,10 @@ import {
   newProjectLink,
   updateProjectLink,
 } from "../../api/project";
+import { MuiColorInput } from "mui-color-input";
 
 const NewProjectLinkForm = () => {
+  const [value, setValue] = React.useState("");
   let { projectId, projectLinkId } = useParams();
   const navigate = useNavigate();
   const mutation = useMutation({ mutationFn: newProjectLink });
@@ -69,6 +71,25 @@ const NewProjectLinkForm = () => {
       }
     },
   });
+  function rgbToHex(rgb) {
+    const matches = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
+    if (!matches) {
+      throw new Error("Invalid RGB format");
+    }
+
+    const r = parseInt(matches[1]);
+    const g = parseInt(matches[2]);
+    const b = parseInt(matches[3]);
+
+    const redHex = r.toString(16).padStart(2, "0");
+    const greenHex = g.toString(16).padStart(2, "0");
+    const blueHex = b.toString(16).padStart(2, "0");
+
+    const hexColor = `#${redHex}${greenHex}${blueHex}`;
+
+    return hexColor;
+  }
   useEffect(() => {
     if (!isLoading && !isError) {
       formik.setValues({
@@ -76,8 +97,13 @@ const NewProjectLinkForm = () => {
         url: data.data.url,
         color: data.data.color,
       });
+      setValue(data.data.color);
     }
   }, [isLoading, isError, data]);
+  const handleChange = (newValue) => {
+    formik.setFieldValue("color", rgbToHex(newValue));
+    setValue(rgbToHex(newValue));
+  };
   return (
     <form onSubmit={formik.handleSubmit}>
       <Card mb={12}>
@@ -125,18 +151,19 @@ const NewProjectLinkForm = () => {
                   />
                 </Grid>
                 <Grid item md={12}>
-                  <TextField
-                    name="color"
-                    label="Background Color"
-                    value={formik.values.color}
-                    error={Boolean(formik.touched.color && formik.errors.color)}
-                    fullWidth
-                    helperText={formik.touched.color && formik.errors.color}
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    variant="outlined"
-                    my={2}
-                  />
+                  <MuiColorInput value={value} onChange={handleChange} />
+                  {/*<TextField*/}
+                  {/*  name="color"*/}
+                  {/*  label="Background Color"*/}
+                  {/*  value={formik.values.color}*/}
+                  {/*  error={Boolean(formik.touched.color && formik.errors.color)}*/}
+                  {/*  fullWidth*/}
+                  {/*  helperText={formik.touched.color && formik.errors.color}*/}
+                  {/*  onBlur={formik.handleBlur}*/}
+                  {/*  onChange={formik.handleChange}*/}
+                  {/*  variant="outlined"*/}
+                  {/*  my={2}*/}
+                  {/*/>*/}
                 </Grid>
                 <Grid item md={12}>
                   <Button type="submit" variant="contained" color="primary" mt={3}>
