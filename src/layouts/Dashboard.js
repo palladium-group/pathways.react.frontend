@@ -19,6 +19,7 @@ import { getAllProjects } from "../api/project";
 import * as MuiIcon from "@mui/icons-material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
+import { toast } from "react-toastify";
 // import Settings from "../components/Settings";
 
 const drawerWidth = 258;
@@ -163,7 +164,9 @@ const Dashboard = ({ children }) => {
   //   return "...error";
   // }
   if (isErrorProject) {
-    return "...error";
+    toast("An error occurred", {
+      type: "error",
+    });
   }
   // console.log(ProjectsData);
   // Function to check if the user has permission to access a route
