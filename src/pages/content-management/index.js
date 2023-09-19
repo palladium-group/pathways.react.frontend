@@ -10,6 +10,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../../api/project";
 import ProjectTabContent from "./ProjectTabContent";
+import { toast } from "react-toastify";
 
 const ContentDataGrid = () => {
   const navigate = useNavigate();
@@ -22,12 +23,16 @@ const ContentDataGrid = () => {
     return "...loading";
   }
   if (isError) {
-    return "...error";
+    toast("An error occurred", {
+      type: "error",
+    });
   }
 
   const getIcon = (iconName) => {
-    const Icon = MuiIcon[iconName];
-    return <Icon />;
+    if (iconName) {
+      const Icon = MuiIcon[iconName];
+      return <Icon />;
+    }
   };
   return (
     <React.Fragment>
