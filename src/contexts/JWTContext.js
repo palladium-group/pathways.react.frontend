@@ -3,6 +3,7 @@ import { createContext, useEffect, useReducer } from "react";
 import axios from "../utils/axios";
 import { isValidToken, setSession } from "../utils/jwt";
 import url from "../api";
+import { useNavigate } from "react-router-dom";
 
 // Note: If you're trying to connect JWT to your own backend, don't forget
 // to remove the Axios mocks in the `/src/index.js` file.
@@ -55,7 +56,7 @@ const AuthContext = createContext(null);
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(JWTReducer, initialState);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const initialize = async () => {
       try {
@@ -64,16 +65,31 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await axios.get(`${url}user/current`);
-          const { user } = response.data;
+          try {
+            const response = await axios.get(`${url}user/current`);
+            const { user } = response.data;
 
-          dispatch({
-            type: INITIALIZE,
-            payload: {
-              isAuthenticated: true,
-              user,
-            },
-          });
+            dispatch({
+              type: INITIALIZE,
+              payload: {
+                isAuthenticated: true,
+                user,
+              },
+            });
+          } catch (error) {
+            if (
+              error.response &&
+              (error.response.status === 401 || error.response.status === 403)
+            ) {
+              console.log("Unauthorized or Forbidden. Removing access token.");
+              localStorage.removeItem("accessToken");
+              navigate("/auth/sign-in");
+            } else {
+              localStorage.removeItem("accessToken");
+              navigate("/auth/sign-in");
+              console.error("An error occurred:", error.message);
+            }
+          }
         } else {
           dispatch({
             type: INITIALIZE,
@@ -99,10 +115,18 @@ function AuthProvider({ children }) {
   }, []);
 
   const signIn = async (email, password) => {
-    const response = await axios.post(`${url}auth/login`, {
-      username: email,
-      password: password,
-    });
+    const response = await axios.post(
+      `${url}auth/login`,
+      {
+        username: email,
+        password: password,
+      },
+      {
+        headers: {
+          Authorization: null,
+        },
+      },
+    );
     const { accessToken, user } = response.data;
 
     setSession(accessToken);
