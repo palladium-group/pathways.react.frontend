@@ -5,11 +5,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Add } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-// import * as MuiIcon from "@mui/icons-material";
-import { TabContext, TabList } from "@mui/lab";
+import * as MuiIcon from "@mui/icons-material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProjects } from "../../api/project";
-// import ProjectTabContent from "./ProjectTabContent";
+import ProjectTabContent from "./ProjectTabContent";
 import { toast } from "react-toastify";
 
 const ContentDataGrid = () => {
@@ -30,9 +30,10 @@ const ContentDataGrid = () => {
 
   const getIcon = (iconName) => {
     if (iconName) {
-      // const Icon = MuiIcon[iconName];
-      // return <Icon />;
+      const Icon = MuiIcon[iconName];
+      return <Icon />;
     }
+    return <div />;
   };
   return (
     <React.Fragment>
@@ -56,11 +57,11 @@ const ContentDataGrid = () => {
                 ))}
               </TabList>
             </Box>
-            {/*{data.data.map((project, key) => (*/}
-            {/*  <TabPanel value={project.id.toString()} key={key}>*/}
-            {/*    <ProjectTabContent projectId={project.id} />*/}
-            {/*  </TabPanel>*/}
-            {/*))}*/}
+            {data.data.map((project, key) => (
+              <TabPanel value={project.id.toString()} key={key}>
+                <ProjectTabContent projectId={project.id} />
+              </TabPanel>
+            ))}
           </TabContext>
         </Box>
       </Card>
