@@ -20,6 +20,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import * as yup from "yup";
 import { assignUserPermissions, getUserPermissionsById } from "../../api/permissions";
 import { getAllProjects } from "../../api/project";
+import { getUserById } from "../../api/user";
 
 const AssignUserPermissions = () => {
   let { userId } = useParams();
@@ -31,6 +32,11 @@ const AssignUserPermissions = () => {
       enabled: !!userId,
     },
   );
+  const {
+    isLoading: isLoadingUser,
+    isError: isErrorUser,
+    data: UserData,
+  } = useQuery(["getUserById", userId], getUserById, { enabled: !!userId });
 
   const mutation = useMutation({ mutationFn: assignUserPermissions });
   const formik = useFormik({
@@ -86,7 +92,13 @@ const AssignUserPermissions = () => {
               <Grid container spacing={12}>
                 <Grid item md={12}>
                   <Typography variant="h3" gutterBottom display={"inline"}>
-                    Assign User Permissions Form
+                    Assign
+                    {!isLoadingUser && !isErrorUser ? (
+                      <strong> {UserData.data.firstName + " " + UserData.data.lastName} </strong>
+                    ) : (
+                      ""
+                    )}
+                    Permissions
                   </Typography>
                 </Grid>
               </Grid>
@@ -152,15 +164,15 @@ const AssignUserPermissions = () => {
 const UserPermissions = () => {
   return (
     <React.Fragment>
-      <Helmet title="Assing User Permissions" />
+      <Helmet title="Assign User Permissions" />
       <Typography variant="h3" gutterBottom display="inline">
-        Assing User Permissions
+        Assign User Permissions
       </Typography>
       <Breadcrumbs aria-label="Breadcrumb" mt={2}>
         <Link component={NavLink} to={"/admin/users"}>
           Admin
         </Link>
-        <Typography>Assing User Permissions</Typography>
+        <Typography>Assign User Permissions</Typography>
       </Breadcrumbs>
       <Divider my={6} />
       <AssignUserPermissions />
