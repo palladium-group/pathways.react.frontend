@@ -29,11 +29,12 @@ const ConfirmPasswordLinkSent = () => {
         <Helmet title="Forgot Password Confirmation" />
 
         <Typography component="h1" variant="h4" align="center" gutterBottom>
-          Forgot Password Confirmation
+          Password Reset Request Sent
         </Typography>
         <Typography component="h2" variant="body1" align="center">
-          A link to reset your account password has been sent, please check your email to reset your
-          password.
+          A password reset message was sent to your email address. Please click on the link in that
+          message to reset your password. If you do not receive the password reset message within a
+          few moments, please check your spam folder or other filtering tools.
         </Typography>
       </Wrapper>
     </React.Fragment>

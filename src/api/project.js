@@ -35,3 +35,8 @@ export const getProjectLinkById = async ({ queryKey }) => {
   const [, projectLinkId] = queryKey;
   return await axios.get(`${apiRoutes.projectLinks}/getProjectLinkById/${projectLinkId}`);
 };
+
+export const deleteProjectLinkById = async ({ queryKey }) => {
+  const [, projectLinkId] = queryKey;
+  return await axios.delete(`${apiRoutes.projectLinks}/delete/${projectLinkId}`);
+};

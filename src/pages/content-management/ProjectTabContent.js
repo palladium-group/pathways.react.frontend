@@ -1,28 +1,54 @@
 import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getProjectLinksByProjectId } from "../../api/project";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteProjectLinkById, getProjectLinksByProjectId } from "../../api/project";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { Button, Paper } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Paper,
+} from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Add as AddIcon } from "@mui/icons-material";
-import { Edit2 } from "react-feather";
+import { Edit2, Trash as TrashIcon } from "react-feather";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ProjectTabContent = ({ projectId }) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [pageSize, setPageSize] = useState(5);
-  const { isError, isLoading, data } = useQuery(
+  const [open, setOpen] = React.useState(false);
+  const [id, setId] = React.useState();
+  const { isError, isLoading, data, error } = useQuery(
     ["getProjectLinksByProjectId", projectId],
     getProjectLinksByProjectId,
     { enabled: !!projectId },
   );
-  if (isLoading) {
-    return "...loading";
-  }
+  const { refetch } = useQuery(["deleteProjectLinkById", id], deleteProjectLinkById, {
+    enabled: false,
+  });
   if (isError) {
-    return "...error";
+    toast(error.response.data, {
+      type: "error",
+    });
   }
+  const handleClickOpen = (id) => {
+    setOpen(true);
+    setId(id);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleDeleteProjectLink = async () => {
+    await refetch();
+    setOpen(false);
+    await queryClient.invalidateQueries(["getProjectLinksByProjectId"]);
+  };
   return (
     <React.Fragment>
       <Card mb={6}>
@@ -70,10 +96,10 @@ const ProjectTabContent = ({ projectId }) => {
                       <NavLink to={`/admin/new-project-link/${projectId}/${params.id}`}>
                         <Button startIcon={<Edit2 />} size="small"></Button>
                       </NavLink>
-                      {/*<Button*/}
-                      {/*  startIcon={<TrashIcon />}*/}
-                      {/*  size="small"*/}
-                      {/*  onClick={() => handleClickOpen(params.id)}></Button>*/}
+                      <Button
+                        startIcon={<TrashIcon />}
+                        size="small"
+                        onClick={() => handleClickOpen(params.id)}></Button>
                     </>
                   ),
                 },
@@ -85,6 +111,26 @@ const ProjectTabContent = ({ projectId }) => {
               getRowHeight={() => "auto"}
             />
           </div>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+            <DialogTitle id="alert-dialog-title">Delete Project Link</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Are you sure you want to delete Project Link?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleDeleteProjectLink} color="primary">
+                Yes
+              </Button>
+              <Button onClick={handleClose} color="error" autoFocus>
+                No
+              </Button>
+            </DialogActions>
+          </Dialog>
         </Paper>
       </Card>
     </React.Fragment>
