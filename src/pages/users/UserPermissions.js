@@ -18,15 +18,12 @@ import { NavLink, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import * as yup from "yup";
-import {
-  assignUserPermissions,
-  getAllPermissions,
-  getUserPermissionsById,
-} from "../../api/permissions";
+import { assignUserPermissions, getUserPermissionsById } from "../../api/permissions";
+import { getAllProjects } from "../../api/project";
 
 const AssignUserPermissions = () => {
   let { userId } = useParams();
-  const { isLoading, data } = useQuery(["getAllPermissions"], getAllPermissions);
+  const { isLoading, data } = useQuery(["getAllProjects"], getAllProjects);
   const { isLoading: isLoadingPermissions, data: dataPermissions } = useQuery(
     ["getUserPermissionsById", userId],
     getUserPermissionsById,
@@ -76,10 +73,6 @@ const AssignUserPermissions = () => {
     const { name, checked } = event.target;
     formik.setFieldValue(`permissions.${name}`, checked);
   };
-
-  const firstCheckbox = data.data.slice(0, 1); // First checkbox in its own row
-  const restCheckboxes = data.data.slice(1); // Remaining checkboxes
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <Card mb={12}>
@@ -98,34 +91,48 @@ const AssignUserPermissions = () => {
                 </Grid>
               </Grid>
               <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-                {firstCheckbox.map((permission) => (
-                  <Box key={permission.id} sx={{ width: "100%" }}>
+                {data.data.map((project) => (
+                  <Box key={project.id} sx={{ width: "100%" }}>
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={formik.values.permissions[permission.route] || false}
+                          checked={formik.values.permissions["pj" + project.id] || false}
                           onChange={handleCheckboxChange}
-                          name={permission.route}
+                          name={"pj" + project.id}
                         />
                       }
-                      label={permission.route + "Home"}
+                      label={project.name + " Home"}
                     />
-                  </Box>
-                ))}
-                {restCheckboxes.map((permission) => (
-                  <Box key={permission.id} sx={{ width: "33%" }}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={formik.values.permissions[permission.route] || false}
-                          onChange={handleCheckboxChange}
-                          name={permission.route}
+                    {project.projectLinks.map((projectLink, key) => (
+                      <Typography component={"ul"} key={key}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={formik.values.permissions["pl" + projectLink.id] || false}
+                              onChange={handleCheckboxChange}
+                              name={"pl" + projectLink.id}
+                            />
+                          }
+                          label={projectLink.name}
                         />
-                      }
-                      label={permission.route}
-                    />
+                      </Typography>
+                    ))}
                   </Box>
                 ))}
+                {/*{restCheckboxes.map((permission) => (*/}
+                {/*  <Box key={permission.id} sx={{ width: "33%" }}>*/}
+                {/*    <FormControlLabel*/}
+                {/*      control={*/}
+                {/*        <Checkbox*/}
+                {/*          checked={formik.values.permissions[permission.route] || false}*/}
+                {/*          onChange={handleCheckboxChange}*/}
+                {/*          name={permission.route}*/}
+                {/*        />*/}
+                {/*      }*/}
+                {/*      label={permission.route}*/}
+                {/*    />*/}
+                {/*  </Box>*/}
+                {/*))}*/}
               </Box>
               <Grid container spacing={2} mt={5}>
                 <Grid item md={3}>

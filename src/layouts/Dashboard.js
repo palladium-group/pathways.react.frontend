@@ -20,6 +20,8 @@ import * as MuiIcon from "@mui/icons-material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 import { toast } from "react-toastify";
+import { getUserPermissions } from "../api/user";
+import useAuth from "../hooks/useAuth";
 // import Settings from "../components/Settings";
 
 const drawerWidth = 258;
@@ -65,6 +67,7 @@ const Dashboard = ({ children }) => {
       pages: [
         {
           title: "Home",
+          name: "home",
           href: "/",
           icon: HomeOutlinedIcon,
           backgroundcolor: "#000000",
@@ -73,7 +76,7 @@ const Dashboard = ({ children }) => {
     },
   ]);
   const [mobileOpen, setMobileOpen] = useState(false);
-  // const { user } = useAuth();
+  const { user } = useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -92,8 +95,7 @@ const Dashboard = ({ children }) => {
     refetchOnReconnect: false,
     retry: false,
   });
-  // const { isLoading, isError, data } = useQuery(["getUserPermissions"], getUserPermissions);
-
+  const { data, isLoading } = useQuery(["getUserPermissions"], getUserPermissions);
   useEffect(() => {
     if (!isErrorProject && !isLoadingProject) {
       const links = ProjectsData.data;
@@ -104,6 +106,7 @@ const Dashboard = ({ children }) => {
           for (const projectLink of link.projectLinks) {
             children.push({
               title: projectLink.name,
+              name: "pl" + projectLink.id,
               href: `/universal-route/home/${projectLink.id}`,
               backgroundcolor: projectLink.color,
             });
@@ -114,6 +117,7 @@ const Dashboard = ({ children }) => {
           pages: [
             {
               title: link.name,
+              name: "pj" + link.id,
               href: "/universal-route/home",
               icon: Icon,
               backgroundcolor: link.color,
@@ -121,84 +125,97 @@ const Dashboard = ({ children }) => {
             },
           ],
         };
-        setNavItems((prevArray) => [...prevArray, newItem]);
+        setNavItems((prevArray) => {
+          // Check if newItem is already in the array
+          if (!prevArray.some((item) => item.title === newItem.title)) {
+            // If it's not in the array, add it
+            return [...prevArray, newItem];
+          }
+          // If it's already in the array, return the previous array as is
+          return prevArray;
+        });
       }
-      setNavItems((prevArray) => [
-        ...prevArray,
-        {
-          title: "Administration",
-          pages: [
+      setNavItems((prevArray) => {
+        // Check if an item with title "Administration" already exists in the array
+        const isAdminAlreadyAdded = prevArray.some((item) => item.title === "Administration");
+        // If it doesn't exist, add it
+        if (!isAdminAlreadyAdded) {
+          return [
+            ...prevArray,
             {
               title: "Administration",
-              href: "/admin",
-              icon: SupervisorAccountOutlinedIcon,
-              children: [
+              name: "",
+              pages: [
                 {
-                  title: "Users",
-                  href: "/admin/users",
-                },
-                {
-                  title: "Content Management",
-                  href: "/admin/content-management",
-                },
-                {
-                  title: "Projects",
-                  href: "/admin/projects",
+                  title: "Administration",
+                  name: "",
+                  href: "/admin",
+                  icon: SupervisorAccountOutlinedIcon,
+                  children: [
+                    {
+                      title: "Users",
+                      name: "",
+                      href: "/admin/users",
+                    },
+                    {
+                      title: "Content Management",
+                      name: "",
+                      href: "/admin/content-management",
+                    },
+                    {
+                      title: "Projects",
+                      name: "",
+                      href: "/admin/projects",
+                    },
+                  ],
                 },
               ],
             },
-          ],
-        },
-      ]);
+          ];
+        }
+
+        // If it already exists, return the previous array as is
+        return prevArray;
+      });
     }
   }, [isLoadingProject, isErrorProject]);
-  // if (isLoading) {
-  //   return "...loading";
-  // }
-
-  if (isLoadingProject) {
-    return "...loading";
-  }
-
-  // if (isError) {
-  //   return "...error";
-  // }
   if (isErrorProject) {
     toast("An error occurred", {
       type: "error",
     });
   }
-  // console.log(ProjectsData);
   // Function to check if the user has permission to access a route
-  // const hasPermission = (route) => {
-  //   const userPermissions = data.data;
-  //   const permissions = userPermissions.filter((obj) => obj === route);
-  //   if (permissions && permissions.length > 0) {
-  //     // Check if the user has at least one of the required permissions
-  //     return true; // You can modify this logic as needed based on your use case
-  //   }
-  //   // If user's permissions are not specified, deny access by default
-  //   return false;
-  // };
+  const hasPermission = (route) => {
+    if (route === "home") {
+      return true;
+    }
+    const userPermissions = isLoading ? [] : data.data;
+    const permissions = userPermissions.filter((obj) => obj === route);
+    if (permissions && permissions.length > 0) {
+      // Check if the user has at least one of the required permissions
+      return true; // You can modify this logic as needed based on your use case
+    }
+    // If user's permissions are not specified, deny access by default
+    return false;
+  };
 
   // Recursive function to filter pages and their children based on user permissions
-  // const filterPagesWithPermission = (pages) => {
-  //   return pages.reduce((filteredPages, page) => {
-  //     if (hasPermission(page.href)) {
-  //       const filteredChildren = page.children ? filterPagesWithPermission(page.children) : null;
-  //       const filteredPage = filteredChildren ? { ...page, children: filteredChildren } : page;
-  //       filteredPages.push(filteredPage);
-  //     }
-  //     return filteredPages;
-  //   }, []);
-  // };
+  const filterPagesWithPermission = (pages) => {
+    return pages.reduce((filteredPages, page) => {
+      if (hasPermission(page.name)) {
+        const filteredChildren = page.children ? filterPagesWithPermission(page.children) : null;
+        const filteredPage = filteredChildren ? { ...page, children: filteredChildren } : page;
+        filteredPages.push(filteredPage);
+      }
+      return filteredPages;
+    }, []);
+  };
 
   // Filter the dashboardItems based on user's permissions
-  // const filteredDashboardItems = navItems.map((item) => {
-  //   const pagesWithPermission = filterPagesWithPermission(item.pages);
-  //   return { ...item, pages: pagesWithPermission };
-  // });
-
+  const filteredDashboardItems = navItems.map((item) => {
+    const pagesWithPermission = filterPagesWithPermission(item.pages);
+    return { ...item, pages: pagesWithPermission };
+  });
   return (
     <Root>
       <CssBaseline />
@@ -210,11 +227,22 @@ const Dashboard = ({ children }) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            items={navItems}
+            items={
+              user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
+                ? navItems
+                : filteredDashboardItems
+            }
           />
         </Box>
         <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <Sidebar PaperProps={{ style: { width: drawerWidth } }} items={navItems} />
+          <Sidebar
+            PaperProps={{ style: { width: drawerWidth } }}
+            items={
+              user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
+                ? navItems
+                : filteredDashboardItems
+            }
+          />
         </Box>
       </Drawer>
       <AppContent>
