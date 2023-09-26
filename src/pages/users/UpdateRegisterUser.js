@@ -1,47 +1,51 @@
-import React from "react";
-import {
-  Breadcrumbs,
-  Divider,
-  Link,
-  Typography,
-  Card,
-  CardContent,
-  Box,
-  CircularProgress,
-  Grid,
-  TextField,
-  Button,
-} from "@mui/material";
-import { Helmet } from "react-helmet-async";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Save } from "@mui/icons-material";
 import { toast } from "react-toastify";
-import { useMutation } from "@tanstack/react-query";
-import { registerUser } from "../../api/auth";
+import Card from "@mui/material/Card";
+import {
+  Box,
+  Breadcrumbs,
+  Button,
+  CardContent,
+  CircularProgress,
+  Divider,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Save } from "@mui/icons-material";
+import { Helmet } from "react-helmet-async";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getUserById } from "../../api/user";
+import { updateRegisterUser } from "../../api/auth";
 
-const RegisterUserForm = () => {
+const UpdateRegisterUserForm = () => {
+  let { userId } = useParams();
   const navigate = useNavigate();
-  const mutation = useMutation({ mutationFn: registerUser });
+  const { isLoading, isError, data } = useQuery(["getUserById", userId], getUserById, {
+    refetchOnWindowFocus: false,
+    enabled: !!userId,
+  });
+  const mutation = useMutation({ mutationFn: updateRegisterUser });
   const formik = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
       email: "",
-      password: "",
     },
     validationSchema: Yup.object().shape({
       firstName: Yup.string().required("Required"),
       lastName: Yup.string().required("Required"),
       email: Yup.string().email().required("Required"),
-      password: Yup.string().required("Required"),
     }),
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       try {
-        values.username = values.email;
+        values.userId = userId;
         await mutation.mutateAsync(values);
-        toast("Successfully Registered User", {
+        toast("Successfully Updated User", {
           type: "success",
         });
         setSubmitting(false);
@@ -55,6 +59,15 @@ const RegisterUserForm = () => {
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      formik.setValues({
+        firstName: data.data.firstName,
+        lastName: data.data.lastName,
+        email: data.data.email,
+      });
+    }
+  }, [data, isLoading, isError]);
   return (
     <form onSubmit={formik.handleSubmit}>
       <Card mb={12}>
@@ -68,7 +81,7 @@ const RegisterUserForm = () => {
               <Grid container spacing={12}>
                 <Grid item md={12}>
                   <Typography variant="h3" gutterBottom display={"inline"}>
-                    Register User Form
+                    Update User Form
                   </Typography>
                 </Grid>
               </Grid>
@@ -113,22 +126,7 @@ const RegisterUserForm = () => {
                     onChange={formik.handleChange}
                     variant="outlined"
                     my={2}
-                  />
-                </Grid>
-                <Grid item md={6}>
-                  <TextField
-                    name="password"
-                    label="Password"
-                    value={formik.values.password}
-                    error={Boolean(formik.touched.password && formik.errors.password)}
-                    fullWidth
-                    helperText={formik.touched.password && formik.errors.password}
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    variant="outlined"
-                    my={2}
-                    type="password"
-                    autoComplete="off"
+                    disabled={true}
                   />
                 </Grid>
                 <Grid item md={12}>
@@ -144,8 +142,7 @@ const RegisterUserForm = () => {
     </form>
   );
 };
-
-const RegisterUser = () => {
+const UpdateRegisterUser = () => {
   return (
     <React.Fragment>
       <Helmet title="Register User" />
@@ -159,8 +156,9 @@ const RegisterUser = () => {
         <Typography>Register User</Typography>
       </Breadcrumbs>
       <Divider my={6} />
-      <RegisterUserForm />
+      <UpdateRegisterUserForm />
     </React.Fragment>
   );
 };
-export default RegisterUser;
+
+export default UpdateRegisterUser;
