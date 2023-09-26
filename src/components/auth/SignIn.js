@@ -7,8 +7,8 @@ import { Formik } from "formik";
 
 import {
   Alert as MuiAlert,
-  Checkbox,
-  FormControlLabel,
+  // Checkbox,
+  // FormControlLabel,
   Button,
   TextField as MuiTextField,
 } from "@mui/material";
@@ -79,10 +79,10 @@ function SignIn() {
             onChange={handleChange}
             my={2}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          {/*<FormControlLabel*/}
+          {/*  control={<Checkbox value="remember" color="primary" />}*/}
+          {/*  label="Remember me"*/}
+          {/*/>*/}
           <Button
             type="submit"
             fullWidth
