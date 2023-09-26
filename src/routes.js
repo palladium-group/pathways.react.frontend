@@ -52,6 +52,7 @@ const MapTNCFinance = async(() => import("./pages/map-tnc/Finance"));
 const Users = async(() => import("./pages/users/index"));
 const RegisterUser = async(() => import("./pages/users/RegisterUser"));
 const UserPermissions = async(() => import("./pages/users/UserPermissions"));
+const UpdateRegisterUser = async(() => import("./pages/users/UpdateRegisterUser"));
 //Content Management
 const ContentManagement = async(() => import("./pages/content-management/index"));
 const NewProject = async(() => import("./pages/content-management/NewProject"));
@@ -192,7 +193,7 @@ const routes = [
       },
       {
         path: "register-user/:userId",
-        element: <RegisterUser />,
+        element: <UpdateRegisterUser />,
       },
       {
         path: "assign-user-permissions/:userId",
