@@ -1,21 +1,21 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { CardMedia, Grid, Paper } from "@mui/material";
-//import useMediaQuery from "@mui/material/useMediaQuery";
-//import { useTheme } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
+// import useMediaQuery from "@mui/material/useMediaQuery";
+// import { useTheme } from "@mui/material/styles";
+// import Card from "@mui/material/Card";
+// import CardContent from "@mui/material/CardContent";
 // import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import { styled } from "@mui/material/styles";
+// import Divider from "@mui/material/Divider";
+// import { styled } from "@mui/material/styles";
 
 import FirstImg from "../../vendor/banner-image.png";
-import TauTauImg from "../../vendor/tautau-logo.png";
-import MAPTNCImg from "../../vendor/map-tnc-logo.png";
-import GlobalMapImg from "../../vendor/global-map.png";
-import PathwayImg from "../../vendor/pathway-logo.png";
-import KiatImg from "../../vendor/kiat-logo.png";
-import InovasiImg from "../../vendor/inovasi-logo.png";
+// import TauTauImg from "../../vendor/tautau-logo.png";
+// import MAPTNCImg from "../../vendor/map-tnc-logo.png";
+import GlobalMapImg from "../../vendor/australia.png";
+// import PathwayImg from "../../vendor/pathway-logo.png";
+// import KiatImg from "../../vendor/kiat-logo.png";
+// import InovasiImg from "../../vendor/inovasi-logo.png";
 
 // const Avatar = styled(MuiAvatar)`
 //   display: inline-block;
@@ -235,14 +235,14 @@ const QuickLinksContent = () => {
 };
 */
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#F7F9FC" : "#F7F9FC",
-  ...theme.typography.body2,
-  padding: "5px",
-  textAlign: "left",
-  minHeight: "130px",
-  color: theme.palette.text.secondary,
-}));
+// const Item = styled(Paper)(({ theme }) => ({
+//   backgroundColor: theme.palette.mode === "dark" ? "#F7F9FC" : "#F7F9FC",
+//   ...theme.typography.body2,
+//   padding: "5px",
+//   textAlign: "left",
+//   minHeight: "130px",
+//   color: theme.palette.text.secondary,
+// }));
 
 /*
 const ITEM_HEIGHT = 48;
@@ -290,92 +290,92 @@ const Home = () => {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Item>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              spacing={0}
-              sx={{ backgroundColor: "#F7F9FC" }}>
-              <Grid item xs={2}>
-                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
-                  <CardContent>
-                    <CardMedia
-                      component="img"
-                      sx={{ height: "5vh", objectFit: "fill" }}
-                      image={PathwayImg}
-                    />
-                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Divider orientation="vertical" variant="middle" flexItem>
-                -
-              </Divider>
-              <Grid item xs={2}>
-                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
-                  <CardContent>
-                    <CardMedia
-                      component="img"
-                      sx={{ height: "5h", objectFit: "fill" }}
-                      image={KiatImg}
-                    />
-                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Divider orientation="vertical" variant="middle" flexItem>
-                -
-              </Divider>
-              <Grid item xs={2}>
-                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
-                  <CardContent>
-                    <CardMedia
-                      component="img"
-                      sx={{ height: "5vh", objectFit: "fill" }}
-                      image={InovasiImg}
-                    />
-                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Divider orientation="vertical" variant="middle" flexItem>
-                -
-              </Divider>
+        {/*<Grid item xs={12}>*/}
+        {/*  <Item>*/}
+        {/*    <Grid*/}
+        {/*      container*/}
+        {/*      direction="row"*/}
+        {/*      justifyContent="center"*/}
+        {/*      alignItems="center"*/}
+        {/*      spacing={0}*/}
+        {/*      sx={{ backgroundColor: "#F7F9FC" }}>*/}
+        {/*      <Grid item xs={2}>*/}
+        {/*        <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>*/}
+        {/*          <CardContent>*/}
+        {/*            <CardMedia*/}
+        {/*              component="img"*/}
+        {/*              sx={{ height: "5vh", objectFit: "fill" }}*/}
+        {/*              image={PathwayImg}*/}
+        {/*            />*/}
+        {/*            /!*<Typography sx={{ fontSize: 12 }}>some text</Typography>*!/*/}
+        {/*          </CardContent>*/}
+        {/*        </Card>*/}
+        {/*      </Grid>*/}
+        {/*      <Divider orientation="vertical" variant="middle" flexItem>*/}
+        {/*        -*/}
+        {/*      </Divider>*/}
+        {/*      <Grid item xs={2}>*/}
+        {/*        <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>*/}
+        {/*          <CardContent>*/}
+        {/*            <CardMedia*/}
+        {/*              component="img"*/}
+        {/*              sx={{ height: "5h", objectFit: "fill" }}*/}
+        {/*              image={KiatImg}*/}
+        {/*            />*/}
+        {/*            /!*<Typography sx={{ fontSize: 12 }}>some text</Typography>*!/*/}
+        {/*          </CardContent>*/}
+        {/*        </Card>*/}
+        {/*      </Grid>*/}
+        {/*      <Divider orientation="vertical" variant="middle" flexItem>*/}
+        {/*        -*/}
+        {/*      </Divider>*/}
+        {/*      <Grid item xs={2}>*/}
+        {/*        <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>*/}
+        {/*          <CardContent>*/}
+        {/*            <CardMedia*/}
+        {/*              component="img"*/}
+        {/*              sx={{ height: "5vh", objectFit: "fill" }}*/}
+        {/*              image={InovasiImg}*/}
+        {/*            />*/}
+        {/*            /!*<Typography sx={{ fontSize: 12 }}>some text</Typography>*!/*/}
+        {/*          </CardContent>*/}
+        {/*        </Card>*/}
+        {/*      </Grid>*/}
+        {/*      <Divider orientation="vertical" variant="middle" flexItem>*/}
+        {/*        -*/}
+        {/*      </Divider>*/}
 
-              <Grid item xs={2}>
-                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
-                  <CardContent>
-                    <CardMedia
-                      component="img"
-                      sx={{ height: "5vh", objectFit: "fill" }}
-                      image={MAPTNCImg}
-                    />
+        {/*      <Grid item xs={2}>*/}
+        {/*        <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>*/}
+        {/*          <CardContent>*/}
+        {/*            <CardMedia*/}
+        {/*              component="img"*/}
+        {/*              sx={{ height: "5vh", objectFit: "fill" }}*/}
+        {/*              image={MAPTNCImg}*/}
+        {/*            />*/}
 
-                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Divider orientation="vertical" variant="middle" flexItem>
-                -
-              </Divider>
-              <Grid item xs={2}>
-                <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>
-                  <CardContent>
-                    <CardMedia
-                      component="img"
-                      sx={{ height: "5vh", objectFit: "fill" }}
-                      image={TauTauImg}
-                    />
-                    {/*<Typography sx={{ fontSize: 12 }}>some text</Typography>*/}
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Item>
-        </Grid>
+        {/*            /!*<Typography sx={{ fontSize: 12 }}>some text</Typography>*!/*/}
+        {/*          </CardContent>*/}
+        {/*        </Card>*/}
+        {/*      </Grid>*/}
+        {/*      <Divider orientation="vertical" variant="middle" flexItem>*/}
+        {/*        -*/}
+        {/*      </Divider>*/}
+        {/*      <Grid item xs={2}>*/}
+        {/*        <Card sx={{ boxShadow: "none", backgroundColor: "#F7F9FC" }}>*/}
+        {/*          <CardContent>*/}
+        {/*            <CardMedia*/}
+        {/*              component="img"*/}
+        {/*              sx={{ height: "5vh", objectFit: "fill" }}*/}
+        {/*              image={TauTauImg}*/}
+        {/*            />*/}
+        {/*            /!*<Typography sx={{ fontSize: 12 }}>some text</Typography>*!/*/}
+        {/*          </CardContent>*/}
+        {/*        </Card>*/}
+        {/*      </Grid>*/}
+        {/*    </Grid>*/}
+        {/*  </Item>*/}
+        {/*</Grid>*/}
 
         {/*        <Grid container direction="row" alignItems="stretch" spacing={2}>
           <Grid item xs={4}>
