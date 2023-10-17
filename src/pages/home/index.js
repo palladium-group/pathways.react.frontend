@@ -12,7 +12,7 @@ import { CardMedia, Grid, Paper } from "@mui/material";
 import FirstImg from "../../vendor/banner-image.png";
 // import TauTauImg from "../../vendor/tautau-logo.png";
 // import MAPTNCImg from "../../vendor/map-tnc-logo.png";
-import GlobalMapImg from "../../vendor/australia.png";
+import GlobalMapImg from "../../vendor/global-map.png";
 // import PathwayImg from "../../vendor/pathway-logo.png";
 // import KiatImg from "../../vendor/kiat-logo.png";
 // import InovasiImg from "../../vendor/inovasi-logo.png";
