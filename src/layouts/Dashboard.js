@@ -21,7 +21,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import SupervisorAccountOutlinedIcon from "@mui/icons-material/SupervisorAccountOutlined";
 import { toast } from "react-toastify";
 import { getUserPermissions } from "../api/user";
-import useAuth from "../hooks/useAuth";
+import useKeyCloakAuth from "../hooks/useKeyCloakAuth";
 // import Settings from "../components/Settings";
 
 const drawerWidth = 258;
@@ -76,7 +76,8 @@ const Dashboard = ({ children }) => {
     },
   ]);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { user } = useAuth();
+  const user = useKeyCloakAuth();
+  console.log(user);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -190,6 +191,7 @@ const Dashboard = ({ children }) => {
       return true;
     }
     const userPermissions = isLoading ? [] : data.data;
+    console.log(data);
     const permissions = userPermissions.filter((obj) => obj === route);
     if (permissions && permissions.length > 0) {
       // Check if the user has at least one of the required permissions
@@ -228,7 +230,7 @@ const Dashboard = ({ children }) => {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             items={
-              user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
+              user && user?.roles.length > 0 && user?.roles[0] === "ADMIN"
                 ? navItems
                 : filteredDashboardItems
             }
@@ -238,7 +240,7 @@ const Dashboard = ({ children }) => {
           <Sidebar
             PaperProps={{ style: { width: drawerWidth } }}
             items={
-              user && user.authorities.length > 0 && user.authorities[0].authority === "ADMIN"
+              user && user?.roles.length > 0 && user?.roles[0] === "ADMIN"
                 ? navItems
                 : filteredDashboardItems
             }

@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Power } from "react-feather";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import { Tooltip, Menu, MenuItem, IconButton as MuiIconButton } from "@mui/material";
+import { kc } from "../../keycloak";
 
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 
 const IconButton = styled(MuiIconButton)`
   svg {
@@ -16,8 +17,8 @@ const IconButton = styled(MuiIconButton)`
 
 function NavbarUserDropdown() {
   const [anchorMenu, setAnchorMenu] = React.useState(null);
-  const navigate = useNavigate();
-  const { signOut } = useAuth();
+  // const navigate = useNavigate();
+  // const { signOut } = useAuth();
 
   const toggleMenu = (event) => {
     setAnchorMenu(event.currentTarget);
@@ -28,8 +29,7 @@ function NavbarUserDropdown() {
   };
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate("/auth/sign-in");
+    await kc.logout();
   };
 
   return (

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { Badge, Grid, Avatar, Typography } from "@mui/material";
+import { Badge, Grid } from "@mui/material";
 
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 
 const Footer = styled.div`
   background-color: ${(props) => props.theme.sidebar.footer.background} !important;
@@ -11,16 +11,16 @@ const Footer = styled.div`
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 `;
 
-const FooterText = styled(Typography)`
-  color: ${(props) => props.theme.sidebar.footer.color};
-`;
+// const FooterText = styled(Typography)`
+//   color: ${(props) => props.theme.sidebar.footer.color};
+// `;
 
-const FooterSubText = styled(Typography)`
-  color: ${(props) => props.theme.sidebar.footer.color};
-  font-size: 0.7rem;
-  display: block;
-  padding: 1px;
-`;
+// const FooterSubText = styled(Typography)`
+//   color: ${(props) => props.theme.sidebar.footer.color};
+//   font-size: 0.7rem;
+//   display: block;
+//   padding: 1px;
+// `;
 
 const FooterBadge = styled(Badge)`
   margin-right: ${(props) => props.theme.spacing(1)};
@@ -34,7 +34,7 @@ const FooterBadge = styled(Badge)`
 `;
 
 const SidebarFooter = ({ ...rest }) => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   return (
     <Footer {...rest}>
@@ -47,20 +47,20 @@ const SidebarFooter = ({ ...rest }) => {
               horizontal: "right",
             }}
             variant="dot">
-            {!!user && <Avatar alt={user.firstName + " " + user.lastName} src={user.avatar} />}
-            {/* Demo data */}
-            {!user && <Avatar alt="Lucy Lavender" src="/static/img/avatars/avatar-1.jpg" />}
+            {/*{!!user && <Avatar alt={user.firstName + " " + user.lastName} src={user.avatar} />}*/}
+            {/*/!* Demo data *!/*/}
+            {/*{!user && <Avatar alt="Lucy Lavender" src="/static/img/avatars/avatar-1.jpg" />}*/}
           </FooterBadge>
         </Grid>
         <Grid item>
-          {!!user && (
-            <FooterText variant="body2">{user.firstName + " " + user.lastName}</FooterText>
-          )}
+          {/*{!!user && (*/}
+          {/*  <FooterText variant="body2">{user.firstName + " " + user.lastName}</FooterText>*/}
+          {/*)}*/}
           {/* Demo data */}
           {/* {!user && <FooterText variant="body2">Lucy Lavender</FooterText>} */}
-          {!!user && (
-            <FooterSubText variant="caption">{user.authorities[0].authority}</FooterSubText>
-          )}
+          {/*{!!user && (*/}
+          {/*  <FooterSubText variant="caption">{user.authorities[0].authority}</FooterSubText>*/}
+          {/*)}*/}
         </Grid>
       </Grid>
     </Footer>
