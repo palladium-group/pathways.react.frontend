@@ -218,6 +218,7 @@ const Dashboard = ({ children }) => {
     const pagesWithPermission = filterPagesWithPermission(item.pages);
     return { ...item, pages: pagesWithPermission };
   });
+  console.log(filteredDashboardItems);
   return (
     <Root>
       <CssBaseline />
@@ -229,22 +230,11 @@ const Dashboard = ({ children }) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            items={
-              user && user?.roles?.length > 0 && user?.roles[0] === "ADMIN"
-                ? navItems
-                : filteredDashboardItems
-            }
+            items={navItems}
           />
         </Box>
         <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <Sidebar
-            PaperProps={{ style: { width: drawerWidth } }}
-            items={
-              user && user?.roles?.length > 0 && user?.roles[0] === "ADMIN"
-                ? navItems
-                : filteredDashboardItems
-            }
-          />
+          <Sidebar PaperProps={{ style: { width: drawerWidth } }} items={navItems} />
         </Box>
       </Drawer>
       <AppContent>
