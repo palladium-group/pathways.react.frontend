@@ -230,7 +230,7 @@ const Dashboard = ({ children }) => {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             items={
-              user && user?.roles.length > 0 && user?.roles[0] === "ADMIN"
+              user && user?.roles?.length > 0 && user?.roles[0] === "ADMIN"
                 ? navItems
                 : filteredDashboardItems
             }
@@ -240,7 +240,7 @@ const Dashboard = ({ children }) => {
           <Sidebar
             PaperProps={{ style: { width: drawerWidth } }}
             items={
-              user && user?.roles.length > 0 && user?.roles[0] === "ADMIN"
+              user && user?.roles?.length > 0 && user?.roles[0] === "ADMIN"
                 ? navItems
                 : filteredDashboardItems
             }
