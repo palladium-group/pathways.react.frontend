@@ -20,10 +20,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import * as yup from "yup";
 import { assignUserPermissions, getUserPermissionsById } from "../../api/permissions";
 import { getAllProjects } from "../../api/project";
-import { getUserById } from "../../api/user";
+import useKeyCloakAuth from "../../hooks/useKeyCloakAuth";
+// import { getUserById } from "../../api/user";
 
 const AssignUserPermissions = () => {
   let { userId } = useParams();
+  const user = useKeyCloakAuth();
   const { isLoading, data } = useQuery(["getAllProjects"], getAllProjects);
   const { isLoading: isLoadingPermissions, data: dataPermissions } = useQuery(
     ["getUserPermissionsById", userId],
@@ -32,11 +34,11 @@ const AssignUserPermissions = () => {
       enabled: !!userId,
     },
   );
-  const {
-    isLoading: isLoadingUser,
-    isError: isErrorUser,
-    data: UserData,
-  } = useQuery(["getUserById", userId], getUserById, { enabled: !!userId });
+  // const {
+  //   isLoading: isLoadingUser,
+  //   isError: isErrorUser,
+  //   data: UserData,
+  // } = useQuery(["getUserById", userId], getUserById, { enabled: !!userId });
 
   const mutation = useMutation({ mutationFn: assignUserPermissions });
   const formik = useFormik({
@@ -93,11 +95,7 @@ const AssignUserPermissions = () => {
                 <Grid item md={12}>
                   <Typography variant="h3" gutterBottom display={"inline"}>
                     Assign
-                    {!isLoadingUser && !isErrorUser ? (
-                      <strong> {UserData.data.firstName + " " + UserData.data.lastName} </strong>
-                    ) : (
-                      ""
-                    )}
+                    {user ? <strong> {user.name} </strong> : ""}
                     Permissions
                   </Typography>
                 </Grid>

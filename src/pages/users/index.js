@@ -11,7 +11,6 @@ import UserDataActions from "./UserDataActions";
 const UsersDataGrid = () => {
   const navigate = useNavigate();
   const { isLoading, isError, data } = useQuery(["getUsers"], getUsers);
-
   if (isLoading) {
     return "...loading";
   }
@@ -37,7 +36,7 @@ const UsersDataGrid = () => {
             <DataGrid
               rowsPerPageOptions={[5, 10, 25]}
               rows={isLoading || isError ? [] : data ? data.data : []}
-              getRowId={(row) => row.userId}
+              getRowId={(row) => row.id}
               columns={[
                 {
                   field: "firstName",

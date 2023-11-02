@@ -1,8 +1,8 @@
 import Keycloak from "keycloak-js";
 
 export const kc = new Keycloak({
-  url: "https://nextgen-pct-kc.eastus.cloudapp.azure.com/auth",
-  realm: "pathways",
-  clientId: "pathways-frontend-client",
+  url: `${process.env.REACT_APP_KEYCLOAK_URL}`,
+  realm: `${process.env.REACT_APP_KEYCLOAK_REALM}`,
+  clientId: `${process.env.REACT_APP_KEYCLOAK_CLIENT}`,
   onLoad: "login-required",
 });

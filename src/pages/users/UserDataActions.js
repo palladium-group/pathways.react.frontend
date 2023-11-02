@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
 import styled from "@emotion/styled";
-import EditIcon from "@mui/icons-material/Edit";
+// import EditIcon from "@mui/icons-material/Edit";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useNavigate } from "react-router-dom";
@@ -53,11 +53,11 @@ const UserDataActions = ({ params }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleEditUser = () => {
-    navigate(`/admin/register-user/${params.row.userId}`);
-  };
+  // const handleEditUser = () => {
+  //   navigate(`/admin/register-user/${params.row.id}`);
+  // };
   const handleAssignUserPermission = () => {
-    navigate(`/admin/assign-user-permissions/${params.row.userId}`);
+    navigate(`/admin/assign-user-permissions/${params.row.id}`);
   };
   return (
     <React.Fragment>
@@ -88,13 +88,13 @@ const UserDataActions = ({ params }) => {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}>
-        <MenuItem
-          onClick={() => handleEditUser()}
-          sx={{ color: "#014d88", fontWeight: "bolder" }}
-          disableRipple>
-          <EditIcon style={{ color: "#014d88" }} />
-          Edit
-        </MenuItem>
+        {/*<MenuItem*/}
+        {/*  onClick={() => handleEditUser()}*/}
+        {/*  sx={{ color: "#014d88", fontWeight: "bolder" }}*/}
+        {/*  disableRipple>*/}
+        {/*  <EditIcon style={{ color: "#014d88" }} />*/}
+        {/*  Edit*/}
+        {/*</MenuItem>*/}
         <MenuItem
           onClick={() => handleAssignUserPermission()}
           sx={{ color: "#992E62", fontWeight: "bolder" }}

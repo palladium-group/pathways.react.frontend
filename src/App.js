@@ -45,12 +45,16 @@ function App({ emotionCache = clientSideEmotionCache }) {
           };
           localStorage.setItem("token", kc.token);
           SetUserInformation(user);
-          console.log(kc);
+        } else {
+          SetUserInformation(null);
         }
       } catch (e) {
         console.log(e);
       }
     });
+    kc.onTokenExpired = () => {
+      kc.updateToken(30);
+    };
   }, []);
 
   const content = useRoutes(routes);
