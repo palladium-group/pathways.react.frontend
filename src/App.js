@@ -38,10 +38,11 @@ function App({ emotionCache = clientSideEmotionCache }) {
     }).then((auth) => {
       try {
         if (auth) {
+          console.log(kc.tokenParsed);
           const user = {
             name: kc.tokenParsed.name,
             token: kc.token,
-            roles: kc.tokenParsed?.resource_access?.["palladium-gateway-client"]?.roles,
+            roles: kc.tokenParsed?.resource_access?.["pathways-frontend-client"]?.roles,
           };
           localStorage.setItem("token", kc.token);
           SetUserInformation(user);
