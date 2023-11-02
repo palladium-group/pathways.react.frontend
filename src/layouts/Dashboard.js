@@ -95,7 +95,7 @@ const Dashboard = ({ children }) => {
     refetchOnReconnect: false,
     retry: false,
   });
-  const { data, isLoading } = useQuery(["getUserPermissions"], getUserPermissions);
+  const { data, isLoading } = useQuery(["getUserPermissions", user.sub], getUserPermissions);
   useEffect(() => {
     if (!isErrorProject && !isLoadingProject) {
       const links = ProjectsData.data;

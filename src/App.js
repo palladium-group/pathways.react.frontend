@@ -43,6 +43,7 @@ function App({ emotionCache = clientSideEmotionCache }) {
             name: kc.tokenParsed.name,
             token: kc.token,
             roles: kc.tokenParsed?.resource_access?.["pathways-frontend-client"]?.roles,
+            sub: kc.tokenParsed.sub,
           };
           localStorage.setItem("token", kc.token);
           SetUserInformation(user);
