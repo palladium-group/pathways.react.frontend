@@ -10,6 +10,7 @@ export const getUserById = async ({ queryKey }) => {
   return await axios.get(`${apiRoutes.user}/get/${userId}`);
 };
 
-export const getUserPermissions = async () => {
-  return await axios.get(`${apiRoutes.user}/user-permissions`);
+export const getUserPermissions = async ({ queryKey }) => {
+  const [, sub] = queryKey;
+  return await axios.get(`${apiRoutes.user}/user-permissions/${sub}`);
 };
