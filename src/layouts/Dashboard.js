@@ -215,7 +215,6 @@ const Dashboard = ({ children }) => {
     const pagesWithPermission = filterPagesWithPermission(item.pages);
     return { ...item, pages: pagesWithPermission };
   });
-  console.log(filteredDashboardItems);
   return (
     <Root>
       <CssBaseline />

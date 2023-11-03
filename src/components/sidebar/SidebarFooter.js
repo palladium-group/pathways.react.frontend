@@ -36,7 +36,6 @@ const FooterBadge = styled(Badge)`
 
 const SidebarFooter = ({ ...rest }) => {
   const user = useKeyCloakAuth();
-  console.log(user);
 
   return (
     <Footer {...rest}>
