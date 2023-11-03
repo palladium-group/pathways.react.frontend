@@ -3,9 +3,9 @@ const getUrl = () => {
     return "http://localhost:9090/api/";
   }
   if (window.location.protocol !== "https:") {
-    return "https://pathways.dias-is.online/backend/api/";
+    return "https://thepalladiumgateway.com/backend/api/";
   }
-  return "https://pathways.dias-is.online/backend/api/";
+  return "https://thepalladiumgateway.com/backend/api/";
 };
 
 // prod Server
