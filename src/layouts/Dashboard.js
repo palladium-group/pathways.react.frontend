@@ -77,7 +77,6 @@ const Dashboard = ({ children }) => {
   ]);
   const [mobileOpen, setMobileOpen] = useState(false);
   const user = useKeyCloakAuth();
-  console.log(user);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -228,11 +227,22 @@ const Dashboard = ({ children }) => {
             variant="temporary"
             open={mobileOpen}
             onClose={handleDrawerToggle}
-            items={navItems}
+            items={
+              user && user?.roles?.length > 0 && user?.roles?.includes("ADMIN")
+                ? navItems
+                : filteredDashboardItems
+            }
           />
         </Box>
         <Box sx={{ display: { xs: "none", md: "block" } }}>
-          <Sidebar PaperProps={{ style: { width: drawerWidth } }} items={navItems} />
+          <Sidebar
+            PaperProps={{ style: { width: drawerWidth } }}
+            items={
+              user && user?.roles?.length > 0 && user?.roles?.includes("ADMIN")
+                ? navItems
+                : filteredDashboardItems
+            }
+          />
         </Box>
       </Drawer>
       <AppContent>
