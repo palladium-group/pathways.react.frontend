@@ -65,7 +65,7 @@ function App({ emotionCache = clientSideEmotionCache }) {
   return (
     <CacheProvider value={emotionCache}>
       <HelmetProvider>
-        <Helmet titleTemplate="%s | PATHWAYS" defaultTitle="PATHWAYS" />
+        <Helmet titleTemplate="%s | PALLADIUM GATEWAY" defaultTitle="PALLADIUM GATEWAY" />
         <Provider store={store}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <MuiThemeProvider theme={createTheme(theme)}>
