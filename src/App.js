@@ -38,7 +38,6 @@ function App({ emotionCache = clientSideEmotionCache }) {
     }).then((auth) => {
       try {
         if (auth) {
-          console.log(kc.tokenParsed);
           const user = {
             name: kc.tokenParsed.name,
             token: kc.token,

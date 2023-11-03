@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import { Badge, Grid } from "@mui/material";
+import { Avatar, Badge, Grid, Typography } from "@mui/material";
+import useKeyCloakAuth from "../../hooks/useKeyCloakAuth";
 
 // import useAuth from "../../hooks/useAuth";
 
@@ -15,12 +16,12 @@ const Footer = styled.div`
 //   color: ${(props) => props.theme.sidebar.footer.color};
 // `;
 
-// const FooterSubText = styled(Typography)`
-//   color: ${(props) => props.theme.sidebar.footer.color};
-//   font-size: 0.7rem;
-//   display: block;
-//   padding: 1px;
-// `;
+const FooterSubText = styled(Typography)`
+  color: ${(props) => props.theme.sidebar.footer.color};
+  font-size: 0.7rem;
+  display: block;
+  padding: 1px;
+`;
 
 const FooterBadge = styled(Badge)`
   margin-right: ${(props) => props.theme.spacing(1)};
@@ -34,7 +35,7 @@ const FooterBadge = styled(Badge)`
 `;
 
 const SidebarFooter = ({ ...rest }) => {
-  // const { user } = useAuth();
+  const user = useKeyCloakAuth();
 
   return (
     <Footer {...rest}>
@@ -47,7 +48,7 @@ const SidebarFooter = ({ ...rest }) => {
               horizontal: "right",
             }}
             variant="dot">
-            {/*{!!user && <Avatar alt={user.firstName + " " + user.lastName} src={user.avatar} />}*/}
+            {!!user && <Avatar alt={user.name} src={user.avatar} />}
             {/*/!* Demo data *!/*/}
             {/*{!user && <Avatar alt="Lucy Lavender" src="/static/img/avatars/avatar-1.jpg" />}*/}
           </FooterBadge>
@@ -58,9 +59,11 @@ const SidebarFooter = ({ ...rest }) => {
           {/*)}*/}
           {/* Demo data */}
           {/* {!user && <FooterText variant="body2">Lucy Lavender</FooterText>} */}
-          {/*{!!user && (*/}
-          {/*  <FooterSubText variant="caption">{user.authorities[0].authority}</FooterSubText>*/}
-          {/*)}*/}
+          {!!user && (
+            <FooterSubText variant="caption">
+              {user?.roles?.length > 0 ? user?.roles[0] : ""}
+            </FooterSubText>
+          )}
         </Grid>
       </Grid>
     </Footer>

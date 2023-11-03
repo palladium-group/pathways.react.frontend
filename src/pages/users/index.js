@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Button, Card, CardContent, Paper, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Add } from "@mui/icons-material";
-import { DataGrid } from "@mui/x-data-grid";
+import { Card, CardContent, Paper, Typography } from "@mui/material";
+// import { useNavigate } from "react-router-dom";
+// import { Add } from "@mui/icons-material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../../api/user";
 import UserDataActions from "./UserDataActions";
 
 const UsersDataGrid = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const [pageSize, setPageSize] = useState(5);
   const { isLoading, isError, data } = useQuery(["getUsers"], getUsers);
   if (isLoading) {
     return "...loading";
@@ -27,9 +28,9 @@ const UsersDataGrid = () => {
     <React.Fragment>
       <Card mb={6}>
         <CardContent pb={1}>
-          <Button mr={2} variant="contained" onClick={() => navigate("/admin/register-user")}>
-            <Add /> New User
-          </Button>
+          {/*<Button mr={2} variant="contained" onClick={() => navigate("/admin/register-user")}>*/}
+          {/*  <Add /> New User*/}
+          {/*</Button>*/}
         </CardContent>
         <Paper mt={5}>
           <div style={{ height: 400, width: "100%" }}>
@@ -67,6 +68,11 @@ const UsersDataGrid = () => {
                   },
                 },
               ]}
+              pageSize={pageSize}
+              onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+              loading={isLoading}
+              components={{ Toolbar: GridToolbar }}
+              getRowHeight={() => "auto"}
             />
           </div>
         </Paper>
