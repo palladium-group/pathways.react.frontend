@@ -21,6 +21,7 @@ import * as yup from "yup";
 import { assignUserPermissions, getUserPermissionsById } from "../../api/permissions";
 import { getAllProjects } from "../../api/project";
 import useKeyCloakAuth from "../../hooks/useKeyCloakAuth";
+import { toast } from "react-toastify";
 // import { getUserById } from "../../api/user";
 
 const AssignUserPermissions = () => {
@@ -59,6 +60,9 @@ const AssignUserPermissions = () => {
       };
       await mutation.mutateAsync(Indata);
       setSubmitting(false);
+      toast("Successfully Assigned User Permissions", {
+        type: "success",
+      });
     },
   });
 

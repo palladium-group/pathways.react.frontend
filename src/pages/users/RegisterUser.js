@@ -29,13 +29,13 @@ const RegisterUserForm = () => {
       firstName: "",
       lastName: "",
       email: "",
-      password: "",
+      // password: "",
     },
     validationSchema: Yup.object().shape({
       firstName: Yup.string().required("Required"),
       lastName: Yup.string().required("Required"),
       email: Yup.string().email().required("Required"),
-      password: Yup.string().required("Required"),
+      // password: Yup.string().required("Required"),
     }),
     onSubmit: async (values, { resetForm, setSubmitting }) => {
       try {
@@ -115,22 +115,22 @@ const RegisterUserForm = () => {
                     my={2}
                   />
                 </Grid>
-                <Grid item md={6}>
-                  <TextField
-                    name="password"
-                    label="Password"
-                    value={formik.values.password}
-                    error={Boolean(formik.touched.password && formik.errors.password)}
-                    fullWidth
-                    helperText={formik.touched.password && formik.errors.password}
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    variant="outlined"
-                    my={2}
-                    type="password"
-                    autoComplete="off"
-                  />
-                </Grid>
+                {/*<Grid item md={6}>*/}
+                {/*  <TextField*/}
+                {/*    name="password"*/}
+                {/*    label="Password"*/}
+                {/*    value={formik.values.password}*/}
+                {/*    error={Boolean(formik.touched.password && formik.errors.password)}*/}
+                {/*    fullWidth*/}
+                {/*    helperText={formik.touched.password && formik.errors.password}*/}
+                {/*    onBlur={formik.handleBlur}*/}
+                {/*    onChange={formik.handleChange}*/}
+                {/*    variant="outlined"*/}
+                {/*    my={2}*/}
+                {/*    type="password"*/}
+                {/*    autoComplete="off"*/}
+                {/*  />*/}
+                {/*</Grid>*/}
                 <Grid item md={12}>
                   <Button type="submit" variant="contained" color="primary" mt={3}>
                     <Save /> Save Changes
