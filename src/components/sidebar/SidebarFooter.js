@@ -12,9 +12,9 @@ const Footer = styled.div`
   border-right: 1px solid rgba(0, 0, 0, 0.12);
 `;
 
-// const FooterText = styled(Typography)`
-//   color: ${(props) => props.theme.sidebar.footer.color};
-// `;
+const FooterText = styled(Typography)`
+  color: ${(props) => props.theme.sidebar.footer.color};
+`;
 
 const FooterSubText = styled(Typography)`
   color: ${(props) => props.theme.sidebar.footer.color};
@@ -54,9 +54,7 @@ const SidebarFooter = ({ ...rest }) => {
           </FooterBadge>
         </Grid>
         <Grid item>
-          {/*{!!user && (*/}
-          {/*  <FooterText variant="body2">{user.firstName + " " + user.lastName}</FooterText>*/}
-          {/*)}*/}
+          {!!user && <FooterText variant="body2">{user.name}</FooterText>}
           {/* Demo data */}
           {/* {!user && <FooterText variant="body2">Lucy Lavender</FooterText>} */}
           {!!user && (
